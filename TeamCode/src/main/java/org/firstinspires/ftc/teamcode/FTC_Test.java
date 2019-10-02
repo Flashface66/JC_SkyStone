@@ -22,6 +22,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
                 Movements();
 
                 ClawMove();
+
+                ArmMove();
             }
 
         }
@@ -31,19 +33,17 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
             double rightPower = gamepad1.right_stick_y;
 
 
-            RB.Right.setPower(rightPower);
+            RB.Right.setPower(-rightPower);
             RB.Left.setPower(leftPower);
 
         }
 
         private void ClawMove() {
-            if (gamepad1.right_trigger > 0 ) {
-               RB.Claw.setPower(1);
-            } else if (gamepad1.left_trigger > 0){
-               RB.Claw.setPower(-1);
-            } else
-               RB.Claw.setPower(0);
-
+            if (gamepad1.left_bumper){
+                RB.Claw.setPower(1);
+            }else if (gamepad1.right_bumper){
+                RB.Claw.setPower(-1);
+            }else RB.Claw.setPower(0);
 
             if (gamepad1.a) {
                 RB.Rotate1.setPosition(0);
@@ -57,6 +57,22 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
                 RB.Rotate1.setPosition(0.5);
                 RB.Rotate2.setPosition(0.5);
             }
+
+        }
+
+        private void ArmMove(){
+        if (gamepad1.right_trigger > 0){
+            RB.Swivel1.setPower(-0.5);
+            RB.Swivel2.setPower(0.5);
+
+        } else if (gamepad1.left_trigger > 0){
+            RB.Swivel1.setPower(0.5);
+            RB.Swivel2.setPower(-0.5);
+
+        } else {
+            RB.Swivel1.setPower(0);
+            RB.Swivel2.setPower(0);
+        }
 
         }
     }
