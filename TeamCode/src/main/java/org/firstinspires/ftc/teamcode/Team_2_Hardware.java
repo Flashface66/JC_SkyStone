@@ -22,8 +22,8 @@ public class Team_2_Hardware {
         hwmap2    = thehwmap2;
 
         //Motor names to be used when configuring the Robot
-        FR = hwmap2.get(DcMotor.class,"FR");
-        FL = hwmap2.get(DcMotor.class,"FL");
+        FR = hwmap2.get(DcMotor.class, "FR");
+        FL = hwmap2.get(DcMotor.class, "FL");
         BR = hwmap2.get(DcMotor.class, "BR");
         BL = hwmap2.get(DcMotor.class, "BL");
         //.
@@ -37,14 +37,11 @@ public class Team_2_Hardware {
         //.
 
 
-        /*
-        *  Motors on the Right rotate forward(used to judge natural forward)
-        *  Motors on the Left rotate forward(they are inverted to the right motors, hence use of reverse)
-        */
-        FR.setDirection(DcMotor.Direction.FORWARD);
-        FL.setDirection(DcMotor.Direction.REVERSE);
-        BR.setDirection(DcMotor.Direction.FORWARD);
-        BL.setDirection(DcMotor.Direction.REVERSE);
+        //Directions set for all drive Motors
+        FR.setDirection(DcMotor.Direction.REVERSE);
+        FL.setDirection(DcMotor.Direction.FORWARD);
+        BR.setDirection(DcMotor.Direction.REVERSE);
+        BL.setDirection(DcMotor.Direction.FORWARD);
         //.
 }
 
