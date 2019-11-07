@@ -109,6 +109,7 @@ public class Colour_2 extends LinearOpMode {
 
       // convert the RGB values to HSV values.
       Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
+      Color.HSVToColor(0xff, values);
 
       // send the info back to driver station using telemetry function.
       telemetry.addData("LED", bLedOn ? "On" : "Off");
@@ -117,6 +118,7 @@ public class Colour_2 extends LinearOpMode {
       telemetry.addData("Green", colorSensor.green());
       telemetry.addData("Blue ", colorSensor.blue());
       telemetry.addData("Hue", hsvValues[0]);
+      telemetry.addData("Colour",values);
 
       // change the background color to match the color detected by the RGB sensor.
       // pass a reference to the hue, saturation, and value array as an argument
