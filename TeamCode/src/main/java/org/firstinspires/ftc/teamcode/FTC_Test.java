@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "TestBot")
+@TeleOp(name = "FTC_Prototype")
 
     public class FTC_Test extends LinearOpMode {
 
@@ -12,13 +12,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
     @Override
         public void runOpMode() {
-            telemetry.addData("Robot: Testbot", " Initialized");
 
             RB.init(hardwareMap);
 
             waitForStart();
-            while (opModeIsActive()){
-
+            while (opModeIsActive()){ //If houses could fly, then could cabbages broccoli??
+                telemetry.addLine("Chav is banging all your moms");
+                telemetry.update();
                 Movements();
 
                 ClawMove();
@@ -32,7 +32,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
             double leftPower = gamepad1.left_stick_y ;
             double rightPower = gamepad1.right_stick_y;
 
-
             RB.Right.setPower(-rightPower);
             RB.Left.setPower(leftPower);
 
@@ -40,10 +39,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
         private void ClawMove() {
             if (gamepad1.left_bumper){
-                RB.Claw.setPower(1);
+                RB.Claw1.setPower(1);
+                RB.Claw2.setPower(1);
             }else if (gamepad1.right_bumper){
-                RB.Claw.setPower(-1);
-            }else RB.Claw.setPower(0);
+                RB.Claw1.setPower(-1);
+                RB.Claw2.setPower(-1);
+            }else
+                RB.Claw1.setPower(0);
+                RB.Claw2.setPower(0);
 
             if (gamepad1.a) {
                 RB.Rotate1.setPosition(0);
@@ -53,25 +56,35 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
                 RB.Rotate1.setPosition(1);
                 RB.Rotate2.setPosition(0);
             }
-            if (gamepad1.x){
-                RB.Rotate1.setPosition(0.5);
-                RB.Rotate2.setPosition(0.5);
-            }
 
         }
 
         private void ArmMove(){
-        if (gamepad1.right_trigger > 0){
-            RB.Swivel1.setPower(-0.5);
-            RB.Swivel2.setPower(0.5);
+        if (gamepad1.right_trigger > 0.1){
+            RB.Gate.setPosition(1);
 
-        } else if (gamepad1.left_trigger > 0){
-            RB.Swivel1.setPower(0.5);
-            RB.Swivel2.setPower(-0.5);
+             if (gamepad1.right_trigger > 0.6){
+                RB.Swivel1.setPower(-gamepad1.right_trigger);
+                RB.Swivel2.setPower(gamepad1.right_trigger);
+             }
 
-        } else {
-            RB.Swivel1.setPower(0);
+        }
+       else if (gamepad1.left_trigger >0.1 ) {
+            RB.Gate.setPosition(1);
+
+            if (gamepad1.left_trigger > 0.6){
+                RB.Swivel1.setPower(gamepad1.left_trigger);
+                RB.Swivel2.setPower(-gamepad1.left_trigger);
+            }
+       }
+
+
+
+
+       else {
+            RB.Swivel1.setPower(0); //Traveling through time is just like slicing an apple in butter
             RB.Swivel2.setPower(0);
+            RB.Gate.setPosition(0);
         }
 
         }
