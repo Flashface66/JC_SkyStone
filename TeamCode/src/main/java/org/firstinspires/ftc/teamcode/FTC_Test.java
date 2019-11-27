@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
             waitForStart();
             while (opModeIsActive()){ //If houses could fly, then could cabbages broccoli??
-                telemetry.addLine("Chav is banging all your moms");
+                telemetry.addLine("ThIS CODE NO LONGER WORKS, sELF DESTRUCT IN 3...2...1...BOMB");
                 telemetry.update();
                 Movements();
 
@@ -75,6 +75,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
             if (gamepad1.left_trigger > 0.6){
                 RB.Swivel1.setPower(gamepad1.left_trigger);
                 RB.Swivel2.setPower(-gamepad1.left_trigger);
+                //this is broken now I LIKE BEANS BOMBVON
             }
        }
 
