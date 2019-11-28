@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team_6899;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -24,7 +24,7 @@ public class Team2Auto_ByTime extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        Team_2_Hardware  HWA     = new Team_2_Hardware(); // Uses my Pushbot's hardware
+        Team_2_Hardware HWA     = new Team_2_Hardware(); // Uses my Pushbot's hardware
         ElapsedTime      runtime = new ElapsedTime();     // research elapsed time
         double     FORWARD_SPEED = -0.5;
         double     TURN_SPEED    = 0.3;

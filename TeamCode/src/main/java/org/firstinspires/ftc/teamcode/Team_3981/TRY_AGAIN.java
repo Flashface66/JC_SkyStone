@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team_3981;
 
 import android.graphics.Color;
 
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
+import org.firstinspires.ftc.teamcode.Team_3981.Auto_Test;
 
 
 @Autonomous
@@ -18,7 +18,7 @@ public class TRY_AGAIN extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    private Auto_Test.Hardware_Test RB = new Auto_Test.Hardware_Test();
+    private Hardware_Test RB = new Hardware_Test();
 
     ColorSensor colorSensor;
 

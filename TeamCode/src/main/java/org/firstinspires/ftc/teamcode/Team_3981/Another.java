@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team_3981;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -15,7 +15,7 @@ public class Another extends LinearOpMode {
 
 
 
-    private Auto_Test.Hardware_Test RB = new Auto_Test.Hardware_Test();
+    private Hardware_Test RB = new Hardware_Test();
 
 
 

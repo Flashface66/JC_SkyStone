@@ -1,6 +1,6 @@
 
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team_3981;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -87,9 +87,9 @@ public class Auto_Test extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  6,  6, 3);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(TURN_SPEED,   1, 1, 3);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(DRIVE_SPEED, 6, 6, 3);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,DRIVE_SPEED,  6,  6, 3);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(TURN_SPEED,TURN_SPEED,   1, 1, 3);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,DRIVE_SPEED, 6, 6, 3);  // S3: Reverse 24 Inches with 4 Sec timeout
 
        /* RB.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
         RB.rightClaw.setPosition(0.0);
@@ -109,7 +109,7 @@ public class Auto_Test extends LinearOpMode {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-    public void encoderDrive(double speed,
+    public void encoderDrive(double Lspeed, double Rspeed,
                              double leftInches, double rightInches,
                              double timeoutS) {
         int newLeftTarget;
@@ -118,21 +118,23 @@ public class Auto_Test extends LinearOpMode {
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
+            // Turn On RUN_TO_POSITION
+            RB.Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            RB.Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
             // Determine new target position, and pass to motor controller
             newLeftTarget = (int)(leftInches/CIRCUMFRENCE_INCHES * COUNTS_PER_INCH);
             newRightTarget =  (int)(rightInches/CIRCUMFRENCE_INCHES * COUNTS_PER_INCH);
             RB.Left.setTargetPosition(newLeftTarget);
             RB.Right.setTargetPosition(newRightTarget);
 
-            // Turn On RUN_TO_POSITION
-            RB.Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RB.Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
             // reset the timeout time and start motion.
             runtime.reset();
 
-            RB.Left.setPower((speed));
-            RB.Right.setPower((speed));
+            RB.Left.setPower((Lspeed));
+            RB.Right.setPower((Rspeed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -165,65 +167,5 @@ public class Auto_Test extends LinearOpMode {
     }
 
 
-    public static class Hardware_Test {
 
-        public DcMotor Right   = null;
-        public DcMotor Left    = null;
-        public DcMotor Claw1   = null;
-        public DcMotor Claw2   = null;
-        public Servo Rotate1 = null;
-        public Servo   Rotate2 = null;
-        public Servo   Gate    = null;
-        public DcMotor Swivel1 = null;
-        public DcMotor Swivel2 = null;
-
-        public HardwareMap hwmap;
-
-
-        Hardware_Test(){
-
-        }
-
-    public void init (HardwareMap thehwmap){
-
-        hwmap   = thehwmap;
-
-        /*
-          Mapping each hardware device to the phone configuration file
-         */
-
-        Right   = hwmap.get(DcMotor.class,"Right");
-        Left    = hwmap.get(DcMotor.class,"Left");
-        Claw1   = hwmap.get(DcMotor.class, "Claw1");
-        Claw2   = hwmap.get(DcMotor.class, "Claw2");
-        Rotate1 = hwmap.get(Servo.class, "Rotate1");
-        Rotate2 = hwmap.get(Servo.class, "Rotate2");
-        Gate    = hwmap.get(Servo.class, "Gate");
-        Swivel1 = hwmap.get(DcMotor.class, "Swivel1");
-        Swivel2 = hwmap.get(DcMotor.class, "Swivel2");
-
-        /*
-          Setting the stops for the Robot.
-          This makes the motor's activity, once their value is zero, to act as a brake.
-         */
-
-
-        Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Swivel1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Swivel2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Claw1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Claw2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        /*
-          Setting the direction for each motor.
-         */
-
-        Swivel1.setDirection(DcMotor.Direction.REVERSE);
-        Swivel2.setDirection(DcMotor.Direction.FORWARD);
-        Claw1.setDirection(DcMotor.Direction.REVERSE);
-        Claw2.setDirection(DcMotor.Direction.FORWARD);
-
-    }
-
-    }
 }
