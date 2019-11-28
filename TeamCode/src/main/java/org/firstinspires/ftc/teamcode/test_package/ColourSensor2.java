@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.test_package;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 
-@TeleOp(name = "Color Sensor")
+@TeleOp(name = "Color Sensor Team 2", group = "Sensor")
 
 public class ColourSensor2 extends LinearOpMode {
 

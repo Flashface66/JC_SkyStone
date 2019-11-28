@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.test_package;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -52,7 +52,6 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @TeleOp(name = "Sensor: MR Color", group = "Sensor")
-@Disabled
 
 public class Colour_2 extends LinearOpMode {
 
@@ -81,7 +80,7 @@ public class Colour_2 extends LinearOpMode {
     boolean bLedOn = true;
 
     // get a reference to our ColorSensor object.
-    colorSensor = hardwareMap.get(ColorSensor.class, "colour");
+    colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
 
     // Set the LED in the beginning
     colorSensor.enableLed(bLedOn);
@@ -124,8 +123,7 @@ public class Colour_2 extends LinearOpMode {
       // pass a reference to the hue, saturation, and value array as an argument
       // to the HSVToColor method.
       relativeLayout.post(new Runnable() {
-        public void run() {
-          relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
+        public void run() { relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
         }
       });
 

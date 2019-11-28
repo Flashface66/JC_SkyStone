@@ -1,10 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.test_package;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import java.nio.channels.DatagramChannel;
 
 @SuppressWarnings("WeakerAccess")
 public class Hardware_Test {
