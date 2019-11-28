@@ -18,13 +18,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Team2: Auto_By_Time", group="Pushbot")
 
-public class Team2Auto_ByTime extends LinearOpMode {
+public class AutoByTime_6899 extends LinearOpMode {
 
 
     @Override
     public void runOpMode() {
 
-        Team_2_Hardware HWA     = new Team_2_Hardware(); // Uses my Pushbot's hardware
+        Hardware_6899 HWA     = new Hardware_6899(); // Uses my Pushbot's hardware
         ElapsedTime      runtime = new ElapsedTime();     // research elapsed time
         double     FORWARD_SPEED = -0.5;
         double     TURN_SPEED    = 0.3;

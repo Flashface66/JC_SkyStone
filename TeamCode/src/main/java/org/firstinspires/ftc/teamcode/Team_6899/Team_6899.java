@@ -4,10 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "FTC_Team_2", group="Teleop")
+@TeleOp(name = "Team_6899", group="Teleop")
 
-public class FTC_Team_2 extends LinearOpMode {
-    private Team_2_Hardware HW = new Team_2_Hardware();
+public class Team_6899 extends LinearOpMode {
+    private Hardware_6899 HW = new Hardware_6899();
 
     @Override
     public void runOpMode()

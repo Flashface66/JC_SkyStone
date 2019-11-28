@@ -6,8 +6,6 @@ package org.firstinspires.ftc.teamcode.Team_6899;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -43,7 +41,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Encoder_Test extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private Team_2_Hardware HW = new Team_2_Hardware(); // Use a Pushbot's hardware
+    private Hardware_6899 HW = new Hardware_6899(); // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
 

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @SuppressWarnings("WeakerAccess")
-public class Team_2_Hardware {
+public class Hardware_6899 {
 
     public DcMotor FR = null;
     public DcMotor FL = null;
@@ -17,7 +17,7 @@ public class Team_2_Hardware {
 
     public HardwareMap hwmap2;
 
-    Team_2_Hardware(){}
+    Hardware_6899(){}
 
     public void init (HardwareMap thehwmap2){
 
