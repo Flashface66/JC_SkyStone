@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
+@Autonomous(name="Pushbot: Encoder", group="Pushbot")
 public class Encoder_Test extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -56,7 +56,7 @@ public class Encoder_Test extends LinearOpMode {
     static final double     TURN_SPEED              = 0.5;
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException{
 
 
 
@@ -119,20 +119,20 @@ public class Encoder_Test extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Turn On RUN_TO_POSITION
-            HW.FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            HW.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            HW.FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            HW.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = (int)(leftInches/CIRCUMFRENCE_INCHES * COUNTS_PER_INCH);
-            newRightTarget =  (int)(rightInches/CIRCUMFRENCE_INCHES * COUNTS_PER_INCH);
+            newLeftTarget = (int)((leftInches/CIRCUMFRENCE_INCHES) * COUNTS_PER_MOTOR_REV);
+            newRightTarget =  (int)((rightInches/CIRCUMFRENCE_INCHES) * COUNTS_PER_MOTOR_REV);
             HW.FL.setTargetPosition(newLeftTarget);
             HW.BL.setTargetPosition(newLeftTarget);
             HW.FR.setTargetPosition(newRightTarget);
             HW.BR.setTargetPosition(newRightTarget);
 
-
+            HW.FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            HW.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            HW.FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            HW.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
