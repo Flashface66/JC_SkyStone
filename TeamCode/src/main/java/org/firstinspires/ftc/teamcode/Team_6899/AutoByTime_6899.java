@@ -1,23 +1,12 @@
 package org.firstinspires.ftc.teamcode.Team_6899;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/**
- * The code assumes that you do NOT have encoders on the wheels,
- *   otherwise you would use: PushbotAutoDriveByEncoder;
- *
- *   The desired path in this example is:
- *   - Drive forward for 3 seconds
- *   - Spin right for 1.3 seconds
- *   - Drive Backwards for 1 Second
- *   - Stop and close the claw.
- *
- */
-
 @Autonomous(name="Team2: Auto_By_Time", group="Pushbot")
-
+@Disabled
 public class AutoByTime_6899 extends LinearOpMode {
 
 
@@ -71,7 +60,7 @@ public class AutoByTime_6899 extends LinearOpMode {
         HWA.FR.setPower(0);
         HWA.BL.setPower(0);
         HWA.BR.setPower(0);
-        HWA.Lift.setPower(LIFT_SPEED);
+        //HWA.Lift.setPower(LIFT_SPEED);
         runtime.reset();
 
         while (opModeIsActive() && (runtime.seconds() < 3.0)){
@@ -82,7 +71,7 @@ public class AutoByTime_6899 extends LinearOpMode {
 
 
         //Step 4: Move Forward Slightly
-        HWA.Lift.setPower(0);
+        //HWA.Lift.setPower(0);
         HWA.FL.setPower(FORWARD_SPEED);
         HWA.FR.setPower(FORWARD_SPEED);
         HWA.BL.setPower(FORWARD_SPEED);
@@ -105,8 +94,8 @@ public class AutoByTime_6899 extends LinearOpMode {
             telemetry.update();
         }//.
 
-        HWA.servo1.setPosition(SERVO_POS1);
-        HWA.servo2.setPosition(SERVO_POS2);
+        //HWA.servo1.setPosition(SERVO_POS1);
+        //HWA.servo2.setPosition(SERVO_POS2);
         runtime.reset();
         while (opModeIsActive() && runtime.seconds() < 2.0){
             telemetry.addData("Path", "Leg 7: %2.5f Seconds Elapsed");

@@ -17,11 +17,17 @@ public class Team_6899 extends LinearOpMode {
 
         HW.init(hardwareMap); //inititalizing Hardware before start
         waitForStart();
+
+
         while (opModeIsActive())
         {
             WheelControl();
+
             Collection();
-            LiftMotor();
+
+            LiftSystem();
+
+            SecondaryLift();
         }
     }
 
@@ -29,8 +35,8 @@ public class Team_6899 extends LinearOpMode {
     private void WheelControl()
     {
         double Power1, Power2;
-        Power1 = Range.clip(gamepad1.left_stick_y, -1, 1);
-        Power2 = Range.clip(gamepad1.right_stick_y, -1, 1);
+        Power1 = Range.clip(gamepad1.left_stick_y, 1, -1);
+        Power2 = Range.clip(gamepad1.right_stick_y,1, -1);
 
 
         //Gamepad Control for Left Motors
@@ -44,29 +50,47 @@ public class Team_6899 extends LinearOpMode {
         //.
     }
 
+    //Function to control intake Servos
     private void Collection()
     {
         if (gamepad1.x) {
-            HW.servo1.setPosition(0);
-            HW.servo2.setPosition(1);
+            HW.ServoR.setPosition(0.0);
+            HW.ServoL.setPosition(1.0);
         } else if (gamepad1.b) {
-            HW.servo1.setPosition(1);
-            HW.servo2.setPosition(0);
+            HW.ServoR.setPosition(1);
+            HW.ServoL.setPosition(0);
         } else if (gamepad1.a){
-            HW.servo1.setPosition(0.5);
-            HW.servo2.setPosition(0.5);
+            HW.ServoR.setPosition(0.5);
+            HW.ServoL.setPosition(0.5);
         }
     }
 
 
     //Function to Control Lift Motor
-    private void LiftMotor()
+    private void LiftSystem()
     {
-        if (gamepad1.dpad_up)
-            HW.Lift.setPower(1);
-        else if (gamepad1.dpad_down)
-            HW.Lift.setPower(-1);
+        if (gamepad1.dpad_up) {
+            HW.LiftL.setPower(1);
+            HW.LiftR.setPower(1);
+        }
+        else if (gamepad1.dpad_down) {
+            HW.LiftL.setPower(-1);
+            HW.LiftR.setPower(-1);
+        }
+        else {
+            HW.LiftL.setPower(0);
+            HW.LiftR.setPower(0);
+        }
+    }
+
+    //Function to control Secondary Lift
+    private void SecondaryLift()
+    {
+        if (gamepad1.right_trigger > 0)
+            HW.SubLift.setPower(1);
+        else if (gamepad1.left_trigger > 0)
+            HW.SubLift.setPower(-1);
         else
-            HW.Lift.setPower(0);
+            HW.SubLift.setPower(0);
     }
 }
