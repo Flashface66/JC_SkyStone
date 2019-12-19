@@ -16,6 +16,8 @@ public class Team_6899 extends LinearOpMode {
         telemetry.addLine("************Status: Running***********");
 
         HW.init(hardwareMap); //inititalizing Hardware before start
+
+
         waitForStart();
 
 
@@ -35,18 +37,18 @@ public class Team_6899 extends LinearOpMode {
     private void WheelControl()
     {
         double Power1, Power2;
-        Power1 = Range.clip(gamepad1.left_stick_y, 1, -1);
-        Power2 = Range.clip(gamepad1.right_stick_y,1, -1);
+        Power1 = Range.clip(gamepad1.left_stick_y, -1, 1);
+        Power2 = Range.clip(gamepad1.right_stick_y,-1, 1);
 
 
         //Gamepad Control for Left Motors
-        HW.FL.setPower(Power1);
-        HW.BL.setPower(Power1);
+        HW.FL.setPower(-Power1);
+        HW.BL.setPower(-Power1);
         //.
 
         //Gamepad Control for Right Motors
-        HW.FR.setPower(Power2);
-        HW.BR.setPower(Power2);
+        HW.FR.setPower(-Power2);
+        HW.BR.setPower(-Power2);
         //.
     }
 
