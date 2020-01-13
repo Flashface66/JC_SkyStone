@@ -29,66 +29,48 @@
 
 package org.firstinspires.ftc.teamcode.Team_6899;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.List;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
-/**
- * This 2019-2020 OpMode illustrates the basics of using the TensorFlow Object Detection API to
- * determine the position of the Skystone game elements.
- *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
- *
- * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
- * is explained below.
- */
-@TeleOp(name = "T.F.O.D. - 6899", group = "Concept")
-public class Vuforia extends LinearOpMode {
+@Autonomous(name = "TFOD_6899", group = "Concept")
+
+
+
+public class TFOD_6899 extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
 
-    /*
-     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
-     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
-     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
-     * web site at https://developer.vuforia.com/license-manager.
-     *
-     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
-     * random data. As an example, here is a example of a fragment of a valid key:
-     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
-     * Once you've obtained a license key, copy the string from the Vuforia web site
-     * and paste it in to your code on the next line, between the double quotes.
-     */
-    private static final String VUFORIA_KEY =
-            "AXd3t+r/////AAABmYdQv5eup0Yvt7Cp6op1bbch4Lq/mi6/90lBIGTa3G86Q3M3vF8VTjha2cPyJ5auJ3gFCwIHbHN2tytuuutr+ucEh2QiMkH+1iwzbp7dq4XQ9PRVrvbotldPz/savzAeUUJc9ygJZOD7fJkYEgf3fOWqHpWyAFoydu8zT2tyT0lgGwDJMdvWx3K5haYE0FSOKXSAQuGVl0DFQKucFjadPmWR7k9CkA17tTuaFSPnBYrdKg5vVWqgcpFezLf8ZllGI88AHeKBrYmtNx9ZiXR71p7R0M7kp+u2Dx5UHDzCA9KxJWapTGxZpWHhvqPBeDgdviMqmEMXOkRsNQYbLbqzB0S/k83x/8WG0EEOiC7H1FFA";
+    private static final double     COUNTS_PER_MOTOR_REV   = 1120;
+    private static final double     DRIVE_GEAR_REDUCTION   = 1.0 ;
+    private static final double     WHEEL_DIAMETER_INCHES  = 4.0 ;
+    private static final double     COUNTS_PER_INCH        = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
+    private static final double     DRIVE_SPEED            = 0.7;
 
-    /**
-     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
-     * localization engine.
-     */
+
+    private Hardware_6899 HWA = new Hardware_6899();
+    private ElapsedTime runtime   = new ElapsedTime();
+
+
+    private static final String VUFORIA_KEY = "AVcMbbr/////AAABmSJ/zV+WP0lqtTDJ6IlsOZaLtmdZ5tFSIYjHhwQSiIx3nle45rpMIbp9F0zuCA7ym8w/0ybucqMi45//dDT5GX9pcLehsKqY+1Kre9BeZ5PMZhlW6WygB710q6Cz1+hc6hj0yNbgO5IUDHOKXelfnCeTpvcqcQ4My/YykQnxXAxlIy/uZMeoXsRO/SLXHubTr4LDwrWlDVBseadXBNQNzurlLTVCPcexLtO0vJVEQeaVdIXweG1FFZwpHAEpNpiCEbtBsKH0iPYcJ64nOfG3gmksfgM5aBmlkurpUsKy3x55hvHUdkhc5aly2evgEl8CUi9D9DUaaccnuldTOG5pQ46006YHMeXevexSiydQy3Zz";
     private VuforiaLocalizer vuforia;
-
-    /**
-     * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
-     * Detection engine.
-     */
     private TFObjectDetector tfod;
+    
 
     @Override
     public void runOpMode() {
-        // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
-        // first.
         initVuforia();
+
+        HWA.init(hardwareMap);
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             initTfod();
@@ -99,7 +81,7 @@ public class Vuforia extends LinearOpMode {
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
-         **/
+         */
         if (tfod != null) {
             tfod.activate();
         }
@@ -109,26 +91,19 @@ public class Vuforia extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        ObjectDetectionFunc();
-
-        if (tfod != null) {
-            tfod.shutdown();
-        }
-    }
-
-    //
-    private void ObjectDetectionFunc(){
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+
                     if (updatedRecognitions != null) {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
-
+                        encoderDrive(DRIVE_SPEED, 20,20);
                         // step through the list of recognitions and display boundary info.
                         int i = 0;
+
                         for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                             telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f", recognition.getLeft(), recognition.getTop());
@@ -138,6 +113,10 @@ public class Vuforia extends LinearOpMode {
                     }
                 }
             }
+        }
+
+        if (tfod != null) {
+            tfod.shutdown();
         }
     }
 
@@ -151,12 +130,11 @@ public class Vuforia extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = CameraDirection.BACK;
+        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
-        // Loading trackables is not necessary for the TensorFlow Object Detection engine.
     }
 
     /**
@@ -164,10 +142,68 @@ public class Vuforia extends LinearOpMode {
      */
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfodParameters.minimumConfidence = 0.8;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+    }
+
+    private void encoderDrive(double speed, double leftInches, double rightInches) {
+        int newLeftTarget;
+        int newRightTarget;
+        int newLeftTarget2;
+        int newRightTarget2;
+
+        // Ensure that the OpMode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newLeftTarget2  = HWA.FL.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newLeftTarget   = HWA.BL.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget2 = HWA.FR.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newRightTarget  = HWA.BR.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+
+            HWA.FL.setTargetPosition(newLeftTarget2);
+            HWA.BL.setTargetPosition(newLeftTarget);
+            HWA.FR.setTargetPosition(newRightTarget2);
+            HWA.BR.setTargetPosition(newRightTarget);
+
+
+            // Turn On RUN_TO_POSITION
+            HWA.FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            HWA.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            HWA.FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            HWA.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            HWA.FL.setPower(Math.abs(speed));
+            HWA.BL.setPower(Math.abs(speed));
+            HWA.FR.setPower(Math.abs(speed));
+            HWA.BR.setPower(Math.abs(speed));
+
+
+            while (opModeIsActive() && (runtime.seconds() < 3.0) && (HWA.FL.isBusy() && HWA.BL.isBusy() && HWA.FR.isBusy() && HWA.BR.isBusy())) {
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            HWA.FR.setPower(0);
+            HWA.BR.setPower(0);
+            HWA.FL.setPower(0);
+            HWA.BL.setPower(0);
+            //.
+
+            // Turn off RUN_TO_POSITION
+            HWA.FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            HWA.BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            HWA.FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            HWA.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //.
+
+            sleep(200);   // optional pause after each move
+        }
     }
 }

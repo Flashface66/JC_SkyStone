@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Team_6899;
+package org.firstinspires.ftc.teamcode.Club_Meetings;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

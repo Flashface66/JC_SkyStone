@@ -47,7 +47,6 @@ public class Hardware_6899 {
         LiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         SubLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //.
 
 
         //Directions set for all drive Motors
@@ -58,7 +57,5 @@ public class Hardware_6899 {
         LiftR.setDirection(DcMotor.Direction.FORWARD);
         LiftL.setDirection(DcMotor.Direction.REVERSE);
         SubLift.setDirection(DcMotor.Direction.FORWARD);
-        //.
     }
-
 }
