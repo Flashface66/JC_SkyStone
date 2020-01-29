@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Team_3981.Auto_Test;
 
 
 @Autonomous
-public class TRY_AGAIN extends LinearOpMode {
+public class PlayGround extends LinearOpMode {
 
 
 
@@ -38,6 +38,8 @@ public class TRY_AGAIN extends LinearOpMode {
 
         RB.Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RB.Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.Claw1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.Claw2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         telemetry.addData("Path0",  "Starting at %7d :%7d",
                 RB.Left.getCurrentPosition(),
@@ -49,7 +51,7 @@ public class TRY_AGAIN extends LinearOpMode {
         waitForStart();
 
 
-        double rotationsNeeded =12/ CIRCUMFRENCE_INCHES;
+      /*  double rotationsNeeded =12/ CIRCUMFRENCE_INCHES;
         int target = (int)(rotationsNeeded*COUNTS_PER_INCH);
         RB.Left.setTargetPosition(target);
         RB.Right.setTargetPosition(target);
@@ -78,14 +80,17 @@ public class TRY_AGAIN extends LinearOpMode {
         RB.Right.setPower(0);
 
 
-        int lifttarget = (int)(1*COUNTS_PER_MOTOR_HEX);
-        RB.Claw1.setTargetPosition(lifttarget);
-        RB.Claw2.setTargetPosition(lifttarget);
-        RB.Claw1.setPower(-.8);
-        RB.Claw2.setPower(.8);
+       */
+
+        int lifttarget = (int)(2 * COUNTS_PER_MOTOR_HEX);
+        RB.Claw1.setTargetPosition(-lifttarget);
+        RB.Claw2.setTargetPosition(-lifttarget);
+
         RB.Claw1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RB.Claw2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        RB.Claw1.setPower(1);
+        RB.Claw2.setPower(1);
 
         while (
                 (RB.Claw1.isBusy() || RB.Claw2.isBusy())) {

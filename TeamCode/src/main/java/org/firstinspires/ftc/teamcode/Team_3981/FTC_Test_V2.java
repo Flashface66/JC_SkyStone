@@ -2,16 +2,13 @@ package org.firstinspires.ftc.teamcode.Team_3981;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "FTC_Prototype")
+@TeleOp(name = "FTC_Prototype_V2")
 
-    public class FTC_Test extends LinearOpMode {
+    public class FTC_Test_V2 extends LinearOpMode {
 
-        private Hardware_Test RB = new Hardware_Test();
+        private Hardware_Test_V2 RB = new Hardware_Test_V2();
         private static final double     COUNTS_PER_MOTOR_HEX    = 288;
 
 
@@ -45,11 +42,15 @@ import com.qualcomm.robotcore.util.Range;
             double leftPower ;
             double rightPower;
 
-            leftPower = Range.clip(gamepad1.left_stick_y, -0.6, 0.6);
-            rightPower= Range.clip(gamepad1.right_stick_y,-0.6, 0.6);
+            leftPower = Range.clip(gamepad1.left_stick_y, -1, 1);
+            rightPower= Range.clip(gamepad1.right_stick_y,-1, 1);
 
-            RB.Right.setPower(-rightPower);
-            RB.Left.setPower(-leftPower );
+            RB.Right.setPower(rightPower);
+            RB.Left.setPower(leftPower);
+            RB.RightB.setPower(-rightPower);
+            RB.LeftB.setPower(-leftPower);
+
+            
 
         }
 

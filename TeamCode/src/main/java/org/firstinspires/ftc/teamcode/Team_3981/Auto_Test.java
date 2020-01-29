@@ -33,6 +33,7 @@ public class Auto_Test extends LinearOpMode {
         RB.init(hardwareMap);
 
 
+
         RB.Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RB.Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -47,17 +48,16 @@ public class Auto_Test extends LinearOpMode {
 
 
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  68,  68);  // S1: Forward 47 Inches with 5 Sec timeout
 
-
-        encoderDrive(DRIVE_SPEED,  -14,  14);
-        encoderDrive(DRIVE_SPEED,  85,  85);
-        encoderDrive(DRIVE_SPEED,  -14,  14);
-        encoderDrive(DRIVE_SPEED,  50,  50);
+        Clamp(1000,0);
+        lift(0.4,0.3);
+        encoderDrive(DRIVE_SPEED,-6,-6);
         encoderDrive(DRIVE_SPEED,  14,  -14);
-        encoderDrive(DRIVE_SPEED,  -40,  -40);
-        // encoderDrive(TURN_SPEED,   1, 1);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        //encoderDrive(DRIVE_SPEED, 6, 6);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,  82,  82);
+        Clamp(1000,1);
+
+
+
 
 
 
@@ -131,7 +131,7 @@ public class Auto_Test extends LinearOpMode {
         int target = (int)(Inches*COUNTS_PER_MOTOR_HEX);
         RB.Claw1.setTargetPosition(target);
         RB.Claw2.setTargetPosition(target);
-        RB.Claw1.setPower(-speed);
+        RB.Claw1.setPower(speed);
         RB.Claw2.setPower(speed);
         RB.Claw1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RB.Claw2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -152,6 +152,9 @@ public class Auto_Test extends LinearOpMode {
 
     }
 
-
+public void Clamp(long time,double pos){
+    RB.Rotate2.setPosition(pos);
+    sleep(time);
+    }
 
 }

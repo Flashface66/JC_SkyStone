@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Team_6899;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "Team_6899", group="Teleop")
@@ -39,12 +41,12 @@ public class Team_6899 extends LinearOpMode {
         Power2 = Range.clip(gamepad1.right_stick_y,-0.7, 0.7);
 
 
-        //Power for Left Motors
+        //Power for Left   HW.SubLifts
         HW.FL.setPower(-Power1);
         HW.BL.setPower(-Power1);
 
 
-        //Power for Right Motors
+        //Power for Right   HW.SubLifts
         HW.FR.setPower(-Power2);
         HW.BR.setPower(-Power2);
 
@@ -66,7 +68,7 @@ public class Team_6899 extends LinearOpMode {
     }
 
 
-    //Function to Control both Lift Motors
+    //Function to Control both Lift   HW.SubLifts
     private void LiftSystem(){
         double PowerL;
         PowerL = Range.clip(gamepad2.left_stick_y, -1, 1);
@@ -74,11 +76,66 @@ public class Team_6899 extends LinearOpMode {
         HW.LiftR.setPower(PowerL);
     }
 
-    //Function to control Secondary Lift Motor
+    //Function to control Secondary Lift   HW.SubLift
     private void SecondaryLift(){
         double PowerSL;
         PowerSL = Range.clip(gamepad2.right_stick_y, -0.8, 0.8);
         HW.SubLift.setPower(PowerSL);
+
+        if (gamepad1.left_bumper) {
+
+            int lifttarget =   HW.SubLift.getCurrentPosition();
+
+            HW.SubLift.setTargetPosition(lifttarget + 1000);
+
+            HW.SubLift.setPower(0.5);
+
+            HW.SubLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+            telemetry.addData("End", "Running to %7d ",  HW.SubLift.getCurrentPosition());
+            telemetry.update();
+
+            while (
+                    (  HW.SubLift.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("End", "Running to %7d ",   HW.SubLift.getCurrentPosition());
+
+                telemetry.update();
+            }
+
+              HW.SubLift.setPower(0);
+
+        }
+        if (gamepad1.right_bumper) {
+
+
+            int lifttarget =   HW.SubLift.getCurrentPosition();
+
+
+              HW.SubLift.setTargetPosition(lifttarget - 1000);
+
+              HW.SubLift.setPower(0.5);
+
+              HW.SubLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+            telemetry.addData("End", "Running to %7d ",   HW.SubLift.getCurrentPosition());
+            telemetry.update();
+
+            while (
+                    (  HW.SubLift.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("End", "Running to %7d ",   HW.SubLift.getCurrentPosition());
+
+                telemetry.update();
+            }
+
+              HW.SubLift.setPower(0);
+
+        }
     }
 
 }

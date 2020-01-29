@@ -50,18 +50,44 @@ public class BlueTray6899 extends LinearOpMode {
         waitForStart();
 
         encoderDrive(DRIVE_SPEED,  47, 47);
+        telemetry.addLine("Chav says 47 inches forward!");
+        telemetry.update();
         encoderDrive(TURN_SPEED,   12, -12);
+        telemetry.addLine("Chav says 12 inches turned");
+        telemetry.update();
         encoderLift(LIFT_SPEED, 12);
+        telemetry.addLine("Chav says lift up 12 inches");
+        telemetry.update();
         encoderDrive(DRIVE_SPEED,  6, 6);
+        telemetry.addLine("Chav says forward 6 inches");
+        telemetry.update();
         encoderLift(LIFT_SPEED, -10);
+        telemetry.addLine("Chav says Lift down 10 inches!");
+        telemetry.update();
         encoderDrive(DRIVE_SPEED, -8, -8);
+        telemetry.addLine("Chav says backward 8 inches");
+        telemetry.update();
         encoderDrive(TURN_SPEED,   12, -12);
+        telemetry.addLine("Chav says 12 inches turned");
+        telemetry.update();
         encoderDrive(DRIVE_SPEED,  35, 35);
+        telemetry.addLine("Chav says forward 35 inches");
+        telemetry.update();
         encoderLift(LIFT_SPEED, 12);
+        telemetry.addLine("Chav says Lift up 12 inches");
+        telemetry.update();
         encoderDrive(DRIVE_SPEED, -12, -12);
+        telemetry.addLine("Chav says backwards 12 inches");
+        telemetry.update();
         encoderDrive(TURN_SPEED,   15, -15);
+        telemetry.addLine("Chav says 15 inches turned");
+        telemetry.update();
         encoderDrive(DRIVE_SPEED,  35, 35);
+        telemetry.addLine("Chav says forward 35 inches");
+        telemetry.update();
 
+        telemetry.addLine("Chav has commanded the robot to stop.");
+        telemetry.addLine("Therefore, STOP!");
         telemetry.addData("Path0", "Complete");
         telemetry.update();
 
@@ -102,6 +128,8 @@ public class BlueTray6899 extends LinearOpMode {
 
 
             while (opModeIsActive() && (runtime.seconds() < 3.0) && (HWA.FL.isBusy() && HWA.BL.isBusy() && HWA.FR.isBusy() && HWA.BR.isBusy())) {
+                telemetry.addLine("Chav has granted this robot the permission to move.");
+                telemetry.addLine("Therefore, move!");
                 telemetry.update();
             }
 
