@@ -15,6 +15,7 @@ public class Team_6899 extends LinearOpMode {
     @Override
     public void runOpMode() {
         telemetry.addLine("           Robot: Team 6899");
+        telemetry.addLine("------------Chav is great  -----------");
         telemetry.addLine("************Status: Running***********");
 
         HW.init(hardwareMap); //inititalizing Hardware before start
