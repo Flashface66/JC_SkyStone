@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="RedTray6899 - Auto")
+@Autonomous(name="RedTray6899 - Auto", group = "TraySide")
 public class RedTray6899 extends LinearOpMode {
 
     private Hardware_6899 HWA       = new Hardware_6899();   // Uses my hardware

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Team_3981;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
+@Disabled
 public class Auto_Test extends LinearOpMode {
 
     /* Declare OpMode members. */

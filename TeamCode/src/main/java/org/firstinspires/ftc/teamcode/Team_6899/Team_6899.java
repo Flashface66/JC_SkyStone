@@ -12,22 +12,19 @@ public class Team_6899 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        telemetry.addLine("           Robot: Team 6899");
-        telemetry.addLine("************Status: Running***********");
 
         HW.init(hardwareMap); //inititalizing Hardware before start
 
-
         waitForStart();
 
+        telemetry.addLine("           Robot: Team 6899");
+        telemetry.addLine("************Status: Running***********");
+        telemetry.update();
 
         while (opModeIsActive()) {
             WheelControl();
-
             Collection();
-
             LiftSystem();
-
             SecondaryLift();
         }
     }
@@ -35,8 +32,8 @@ public class Team_6899 extends LinearOpMode {
     //Function To Control Robot Movement
     private void WheelControl() {
         double Power1, Power2;
-        Power1 = Range.clip(gamepad1.left_stick_y, -0.7, 0.7);
-        Power2 = Range.clip(gamepad1.right_stick_y,-0.7, 0.7);
+        Power1 = Range.clip(gamepad1.left_stick_y, -0.9, 0.9);
+        Power2 = Range.clip(gamepad1.right_stick_y,-0.9, 0.9);
 
 
         //Power for Left Motors
@@ -74,10 +71,11 @@ public class Team_6899 extends LinearOpMode {
         HW.LiftR.setPower(PowerL);
     }
 
+
     //Function to control Secondary Lift Motor
     private void SecondaryLift(){
         double PowerSL;
-        PowerSL = Range.clip(gamepad2.right_stick_y, -0.8, 0.8);
+        PowerSL = Range.clip(gamepad2.right_stick_y, -0.9, 0.9);
         HW.SubLift.setPower(PowerSL);
     }
 

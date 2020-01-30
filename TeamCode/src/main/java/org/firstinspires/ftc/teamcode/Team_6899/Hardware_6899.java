@@ -56,6 +56,6 @@ public class Hardware_6899 {
         BL.setDirection(DcMotor.Direction.REVERSE);
         LiftR.setDirection(DcMotor.Direction.FORWARD);
         LiftL.setDirection(DcMotor.Direction.REVERSE);
-        SubLift.setDirection(DcMotor.Direction.FORWARD);
+        SubLift.setDirection(DcMotor.Direction.REVERSE);
     }
 }

@@ -11,11 +11,11 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
-@Autonomous(name = "TFOD_6899", group = "SkystoneSide")
+@Autonomous(name = "Detection_Test", group = "SkystoneSide")
 
-public class TFOD_6899 extends LinearOpMode {
+public class Detection_Test extends LinearOpMode {
 
-    //TFOD_6899 Variables Declarations
+    //Variables Declarations
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
@@ -32,8 +32,9 @@ public class TFOD_6899 extends LinearOpMode {
     private static final double     WHEEL_DIAMETER_INCHES  = 4.0 ;
     private static final double     COUNTS_PER_INCH        = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
     private static final double     DRIVE_SPEED            = 0.8;
-    private static final double     TURN_SPEED             = 0.8;
-    private static final double     LIFT_SPEED             = 0.8;
+    private static final double     TURN_SPEED             = 0.7;
+    private static final double     LIFT_SPEED             = 0.6;
+    private int                     ANGLE                  = 0;
 
 
     @Override
@@ -79,42 +80,35 @@ public class TFOD_6899 extends LinearOpMode {
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-
                 if (tfod != null) {
-                    // getUpdatedRecognitions() will return null if no new information is available since
-                    // the last time that call was made.
 
-                    encoderDrive(TURN_SPEED, -5, 5);
-                    sleep(1500);
 
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                         telemetry.addData("# of Objects Detected", updatedRecognitions.size());
-
-                        // step through the list of recognitions and display boundary info.
+                        telemetry.update();
                         int i = 0;
 
                         for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                             telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f", recognition.getLeft(), recognition.getTop());
                             telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f", recognition.getRight(), recognition.getBottom());
-                            boolean skystone;
-                            skystone = (recognition.getLabel().equals(LABEL_SECOND_ELEMENT));
-
-                            if ((skystone) && (runtime.seconds() < 6)){
-                                encoderLift(LIFT_SPEED, -18);
-                                encoderDrive(DRIVE_SPEED, 30, 30);
-                                encoderDrive(TURN_SPEED, 12, 0);
-                                encoderDrive(DRIVE_SPEED, 8, 8);
-                                servoClose();
-                                encoderDrive(DRIVE_SPEED, -15, -15);
-                                encoderDrive(TURN_SPEED, 12, -12);
-                                encoderDrive(DRIVE_SPEED, 90, 90);
-                                encoderDrive(TURN_SPEED, -12, 12);
-                                encoderLift(LIFT_SPEED, 10);
+                            telemetry.update();
 
 
+                            boolean skyObject;
+                            skyObject = (recognition.getLabel().equals(LABEL_SECOND_ELEMENT));
+
+
+                            if ((skyObject) && (ANGLE == 0)) {
+                                encoderDrive(DRIVE_SPEED, 15, 15);
+                            }else if ((skyObject) && (ANGLE == 1)) {
+                                encoderDrive(DRIVE_SPEED, 20, 20);
                             }
+
+                            encoderDrive(TURN_SPEED, -5, 5);
+                            ANGLE = ANGLE + 1;
+                            sleep(1000);
                         }
                         telemetry.update();
                     }
@@ -146,7 +140,7 @@ public class TFOD_6899 extends LinearOpMode {
     //Initialize the TensorFlow Object Detection engine.
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfodParameters.minimumConfidence = 0.8;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
@@ -205,7 +199,7 @@ public class TFOD_6899 extends LinearOpMode {
             HWA.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-            sleep(200);   // optional pause after each move
+            sleep(500);   // optional pause after each move
         }
     }
 
@@ -238,7 +232,7 @@ public class TFOD_6899 extends LinearOpMode {
             HWA.LiftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             HWA.LiftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(500);
+            sleep(1000);
         }
     }
 
@@ -246,17 +240,13 @@ public class TFOD_6899 extends LinearOpMode {
     private void servoClose(){
         HWA.ServoR.setPosition(1);
         HWA.ServoL.setPosition(0);
-        sleep(1800);
-        HWA.ServoR.setPosition(0.5);
-        HWA.ServoL.setPosition(0.5);
+        sleep(1000);
     }
 
     //Function to bring up the Arm
     private void servoOpen(){
         HWA.ServoR.setPosition(0);
         HWA.ServoL.setPosition(1);
-        sleep(1800);
-        HWA.ServoR.setPosition(0.5);
-        HWA.ServoL.setPosition(0.5);
+        sleep(1000);
     }
 }
