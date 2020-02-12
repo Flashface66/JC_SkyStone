@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "FTC_Prototype")
+@TeleOp(name = "FTC_Prototype", group = "Teleop")
 
     public class FTC_Test extends LinearOpMode {
 

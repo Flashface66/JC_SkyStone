@@ -48,8 +48,8 @@ public class Hardware_Test {
      */
 
 
-        Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Claw1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Claw2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     /*
@@ -59,6 +59,8 @@ public class Hardware_Test {
 
         Claw1.setDirection(DcMotor.Direction.REVERSE);
         Claw2.setDirection(DcMotor.Direction.FORWARD);
+        Left.setDirection(DcMotor.Direction.REVERSE);
+        Right.setDirection(DcMotor.Direction.FORWARD);
         Left.setDirection(DcMotor.Direction.REVERSE);
         Right.setDirection(DcMotor.Direction.FORWARD);
     }

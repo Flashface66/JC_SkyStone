@@ -14,7 +14,6 @@ public class Hardware_6899 {
     public DcMotor BL = null;
     public DcMotor LiftR = null;
     public DcMotor LiftL = null;
-    public DcMotor SubLift;
     public Servo ServoR = null;
     public Servo ServoL = null;
 
@@ -33,7 +32,6 @@ public class Hardware_6899 {
         BL      = hwmap2.get(DcMotor.class, "BL");
         LiftR   = hwmap2.get(DcMotor.class, "LiftR");
         LiftL   = hwmap2.get(DcMotor.class, "LiftL");
-        SubLift = hwmap2.get(DcMotor.class, "SubLift");
         ServoR  = hwmap2.get(Servo.class,   "ServoL");
         ServoL  = hwmap2.get(Servo.class,   "ServoR");
         //.
@@ -46,7 +44,7 @@ public class Hardware_6899 {
         BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        SubLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
 
         //Directions set for all drive Motors
@@ -56,6 +54,6 @@ public class Hardware_6899 {
         BL.setDirection(DcMotor.Direction.REVERSE);
         LiftR.setDirection(DcMotor.Direction.FORWARD);
         LiftL.setDirection(DcMotor.Direction.REVERSE);
-        SubLift.setDirection(DcMotor.Direction.FORWARD);
+
     }
 }

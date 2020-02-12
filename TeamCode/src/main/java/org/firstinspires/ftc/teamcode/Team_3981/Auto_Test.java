@@ -8,27 +8,27 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 
-@Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
+@Autonomous(name="Pushbot: Auto Drive ", group="Auto")
 public class Auto_Test extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private Hardware_Test RB = new Hardware_Test();   // Use a Pushbot's hardware
+    private Hardware_Test_V2 RB = new Hardware_Test_V2();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
+  //  private DcMotor Claw2 =null;
 
 
 
-    private static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
-    private static final double     COUNTS_PER_MOTOR_HEX    = 288;
-    private static final double     DRIVE_GEAR_REDUCTION    = 0.67;     // This is < 1.0 if geared UP
+    private static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: REV Motor Encoder
+    private static final double     COUNTS_PER_MOTOR_TETRIX = 1440 ;    // eg: TETRIX Motor Encoder
+    private static final double     DRIVE_GEAR_REDUCTION    = 0.3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333;    // This is < 1.0 if geared UP
     private static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     private static final double     CIRCUMFRENCE_INCHES     = WHEEL_DIAMETER_INCHES * Math.PI;
     private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) ;
-    private static final double     DRIVE_SPEED             = 0.3;
+    private static final double     DRIVE_SPEED             = 0.2;
     private static final double     TURN_SPEED              = 0.4;
 
     @Override
     public void runOpMode() {
-
 
         RB.init(hardwareMap);
 
@@ -36,6 +36,15 @@ public class Auto_Test extends LinearOpMode {
 
         RB.Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RB.Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.Claw2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        RB.Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RB.Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RB.Claw2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        RB.RightB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        RB.LeftB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
@@ -49,12 +58,16 @@ public class Auto_Test extends LinearOpMode {
 
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        Clamp(1000,0);
-        lift(0.4,0.3);
-        encoderDrive(DRIVE_SPEED,-6,-6);
+       lift(0.5,400);
+        encoderDrive(DRIVE_SPEED,43,43);
         encoderDrive(DRIVE_SPEED,  14,  -14);
-        encoderDrive(DRIVE_SPEED,  82,  82);
-        Clamp(1000,1);
+        encoderDrive(DRIVE_SPEED,  5,  5);
+       lift(0.5,-400);
+        encoderDrive(DRIVE_SPEED,-5,-5);
+        encoderDrive(DRIVE_SPEED,  14,  -14);
+        encoderDrive(DRIVE_SPEED,10,10);
+       lift(0.5,300);
+
 
 
 
@@ -78,14 +91,13 @@ public class Auto_Test extends LinearOpMode {
                              ) {
         double rightRotationsNeeded =rightInches/ CIRCUMFRENCE_INCHES;
         double leftRotationsNeeded =leftInches/ CIRCUMFRENCE_INCHES;
-        int newLeftTarget= (int)(leftRotationsNeeded*COUNTS_PER_INCH);
-        int newRightTarget= (int)(rightRotationsNeeded*COUNTS_PER_INCH);
+        int newLeftTarget= RB.Left.getCurrentPosition () + (int)(leftRotationsNeeded*COUNTS_PER_INCH);
+        int newRightTarget=RB.Right.getCurrentPosition () + (int)(rightRotationsNeeded*COUNTS_PER_INCH);
 
 
 
             // Determine new target position, and pass to motor controller
-            //newLeftTarget =  (int)((leftInches/CIRCUMFRENCE_INCHES) * COUNTS_PER_INCH);
-            //newRightTarget =  (int)((rightInches/CIRCUMFRENCE_INCHES) * COUNTS_PER_INCH);
+
 
             RB.Left.setTargetPosition(newLeftTarget);
             RB.Right.setTargetPosition(newRightTarget);
@@ -103,7 +115,7 @@ public class Auto_Test extends LinearOpMode {
 
 
 
-            while ((RB.Left.isBusy() || RB.Right.isBusy())) {
+            while ((RB.Left.isBusy() && RB.Right.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
@@ -111,6 +123,8 @@ public class Auto_Test extends LinearOpMode {
                                             RB.Left.getCurrentPosition(),
                                             RB.Right.getCurrentPosition());
                 telemetry.update();
+
+
             }
 
             // Stop all motion;
@@ -118,39 +132,40 @@ public class Auto_Test extends LinearOpMode {
             RB.Right.setPower(0);
 
             // Turn off RUN_TO_POSITION
-            RB.Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            RB.Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-              //sleep(100);   // optional pause after each move
+       // sleep(200);   // optional pause after each move
 
     }
 
     public void lift(double speed,
-                     double Inches){
+                     double Ticks){
         //double rotationsNeeded =Inches;
-        int target = (int)(Inches*COUNTS_PER_MOTOR_HEX);
-        RB.Claw1.setTargetPosition(target);
+        int target = (int)(Ticks);
         RB.Claw2.setTargetPosition(target);
-        RB.Claw1.setPower(speed);
         RB.Claw2.setPower(speed);
-        RB.Claw1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RB.Claw2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
         while (
-                (RB.Claw1.isBusy() || RB.Claw2.isBusy())) {
+                (RB.Claw2.isBusy() )) {
 
             // Display it for the driver.
-            telemetry.addData("End",  "Running to %7d :%7d, %7d",  RB.Claw2.getCurrentPosition(),
-                    RB.Claw1.getCurrentPosition(), target);
+            telemetry.addData("End",  "Running to %7d :%7d",  RB.Claw2.getCurrentPosition(), target);
 
             telemetry.update();
         }
 
-        RB.Claw1.setPower(0);
+
         RB.Claw2.setPower(0);
 
+        RB.Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
+
+
+
 
 public void Clamp(long time,double pos){
     RB.Rotate2.setPosition(pos);
