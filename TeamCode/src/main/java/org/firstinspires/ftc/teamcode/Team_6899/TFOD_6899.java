@@ -32,7 +32,7 @@ public class TFOD_6899 extends LinearOpMode {
     private static final double     WHEEL_DIAMETER_INCHES  = 4.0 ;
     private static final double     COUNTS_PER_INCH        = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
     private static final double     DRIVE_SPEED            = 0.8;
-    private static final double     TURN_SPEED             = 0.8;
+    private static final double     TURN_SPEED             = 0.7;
     private static final double     LIFT_SPEED             = 0.8;
 
 
@@ -74,8 +74,8 @@ public class TFOD_6899 extends LinearOpMode {
 
         waitForStart();
 
-        encoderDrive(DRIVE_SPEED, 5, 5);
-        encoderLift(LIFT_SPEED, 20);
+        //encoderDrive(DRIVE_SPEED, 5, 5);
+        //encoderLift(LIFT_SPEED, 20);
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
@@ -96,25 +96,27 @@ public class TFOD_6899 extends LinearOpMode {
 
                         for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f", recognition.getLeft(), recognition.getTop());
+                            telemetry.addData(String.format("  left,top (%d)", i),     "%.03f , %.03f", recognition.getLeft(),  recognition.getTop());
                             telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f", recognition.getRight(), recognition.getBottom());
                             boolean skystone;
                             skystone = (recognition.getLabel().equals(LABEL_SECOND_ELEMENT));
 
                             if ((skystone) && (runtime.seconds() < 6)){
                                 encoderLift(LIFT_SPEED, -18);
-                                encoderDrive(DRIVE_SPEED, 30, 30);
-                                encoderDrive(TURN_SPEED, 12, 0);
-                                encoderDrive(DRIVE_SPEED, 8, 8);
+                                encoderDrive(DRIVE_SPEED, 40, 40);
+
                                 servoClose();
-                                encoderDrive(DRIVE_SPEED, -15, -15);
-                                encoderDrive(TURN_SPEED, 12, -12);
-                                encoderDrive(DRIVE_SPEED, 90, 90);
+                                encoderDrive(DRIVE_SPEED, -40, -40);
                                 encoderDrive(TURN_SPEED, -12, 12);
-                                encoderLift(LIFT_SPEED, 10);
+                                encoderDrive(DRIVE_SPEED, -90, -90);
+                                encoderDrive(TURN_SPEED, 12, -12);
+                                encoderLift(LIFT_SPEED, 15);
 
 
+                            }else{
+                                encoderDrive(TURN_SPEED, 4, 4);
                             }
+
                         }
                         telemetry.update();
                     }
@@ -187,7 +189,9 @@ public class TFOD_6899 extends LinearOpMode {
             HWA.BR.setPower(Math.abs(speed));
 
 
-            while (opModeIsActive() && (runtime.seconds() < 3.0) && (HWA.FL.isBusy() && HWA.BL.isBusy() && HWA.FR.isBusy() && HWA.BR.isBusy())) {
+            while (opModeIsActive() &&
+                    (runtime.seconds() < 3.0) &&
+                    (HWA.FL.isBusy() && HWA.BL.isBusy() && HWA.FR.isBusy() && HWA.BR.isBusy())) {
                 telemetry.update();
             }
 

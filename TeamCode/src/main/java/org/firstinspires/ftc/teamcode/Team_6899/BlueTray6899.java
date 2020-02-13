@@ -5,10 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="BlueTray6899 - Auto", group = "TraySide")
+@Autonomous(name="BlueTray6899", group = "TraySide")
 public class BlueTray6899 extends LinearOpMode {
 
-    private Hardware_6899 HWA       = new Hardware_6899();   // Uses my hardware
+    private Hardware_6899 HWA       = new Hardware_6899();   // Uses 6899 hardware
     private ElapsedTime   runtime   = new ElapsedTime();
 
     private static final double     COUNTS_PER_MOTOR_REV   = 1120;
@@ -18,8 +18,8 @@ public class BlueTray6899 extends LinearOpMode {
     private static final double     COUNTS_PER_INCH        = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
 
     private static final double     DRIVE_SPEED            = 0.8;
-    private static final double     TURN_SPEED             = 0.7;
-    private static final double     LIFT_SPEED             = 0.6;
+    private static final double     TURN_SPEED             = 0.8;
+    private static final double     LIFT_SPEED             = 0.8;
 
     @Override
     public void runOpMode() {
@@ -51,18 +51,20 @@ public class BlueTray6899 extends LinearOpMode {
 
         encoderDrive(DRIVE_SPEED,  47, 47);
         encoderDrive(TURN_SPEED,   12, -12);
+        encoderLift(LIFT_SPEED, 14);
+        encoderDrive(DRIVE_SPEED,  10, 10);
+        encoderLift(LIFT_SPEED, -15);
+        encoderDrive(DRIVE_SPEED, -10, -10);
+        encoderDrive(TURN_SPEED,   20, -20);
+        encoderDrive(DRIVE_SPEED,  30, 30);
         encoderLift(LIFT_SPEED, 12);
-        encoderDrive(DRIVE_SPEED,  6, 6);
-        encoderLift(LIFT_SPEED, -10);
-        encoderDrive(DRIVE_SPEED, -8, -8);
-        encoderDrive(TURN_SPEED,   12, -12);
-        encoderDrive(DRIVE_SPEED,  35, 35);
-        encoderLift(LIFT_SPEED, 12);
-        encoderDrive(DRIVE_SPEED, -12, -12);
-        encoderDrive(TURN_SPEED,   15, -15);
-        encoderDrive(DRIVE_SPEED,  35, 35);
+        encoderDrive(DRIVE_SPEED, -10, -10);
+        encoderDrive(TURN_SPEED,   -15, 15);
+        encoderLift(LIFT_SPEED, -13);
+        encoderDrive(DRIVE_SPEED,  -45, -45);
 
-        telemetry.addData("Steps > ", "Complete");telemetry.update();
+        telemetry.addData("Steps > ", "Complete");
+        telemetry.update();
 
         sleep(3000);
     }
@@ -115,7 +117,7 @@ public class BlueTray6899 extends LinearOpMode {
             HWA.FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             HWA.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-             sleep(200);   // optional pause after each move
+            //sleep(200);   // optional pause after each move
         }
     }
 
@@ -147,7 +149,7 @@ public class BlueTray6899 extends LinearOpMode {
             HWA.LiftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             HWA.LiftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(1000);
+            //sleep(1000);
         }
     }
 }

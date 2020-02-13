@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team_6899;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -11,7 +11,8 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
-@Autonomous(name = "Detection_Test", group = "SkystoneSide")
+@TeleOp(name = "Detection_Test", group = "SkystoneSide")
+
 
 public class Detection_Test extends LinearOpMode {
 
@@ -33,8 +34,8 @@ public class Detection_Test extends LinearOpMode {
     private static final double     COUNTS_PER_INCH        = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
     private static final double     DRIVE_SPEED            = 0.8;
     private static final double     TURN_SPEED             = 0.7;
-    private static final double     LIFT_SPEED             = 0.6;
-    private int                     ANGLE                  = 0;
+    private static final double     LIFT_SPEED             = 0.8;
+    private int                     ANGLE;
 
 
     @Override
@@ -70,46 +71,44 @@ public class Detection_Test extends LinearOpMode {
             tfod.activate();
         }
 
-        telemetry.addData(">", "Press Play to start Autonomous");
+        telemetry.addData(">", "Press Play to start Tracking");
         telemetry.update();
 
         waitForStart();
 
-        encoderDrive(DRIVE_SPEED, 5, 5);
-        encoderLift(LIFT_SPEED, 20);
+        encoderDrive(DRIVE_SPEED, 7, 7);
+        encoderLift(LIFT_SPEED, 15);
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 if (tfod != null) {
-
-
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                         telemetry.addData("# of Objects Detected", updatedRecognitions.size());
-                        telemetry.update();
+
+
                         int i = 0;
+                        boolean skyObject;
 
                         for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f", recognition.getLeft(), recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f", recognition.getRight(), recognition.getBottom());
+                            telemetry.addData(String.format("  left,top (%d)", i),    "%.03f , %.03f", recognition.getLeft(),  recognition.getTop());
+                            telemetry.addData(String.format("  right,bottom (%d)", i),"%.03f , %.03f", recognition.getRight(), recognition.getBottom());
                             telemetry.update();
 
-
-                            boolean skyObject;
                             skyObject = (recognition.getLabel().equals(LABEL_SECOND_ELEMENT));
-
-
-                            if ((skyObject) && (ANGLE == 0)) {
-                                encoderDrive(DRIVE_SPEED, 15, 15);
-                            }else if ((skyObject) && (ANGLE == 1)) {
-                                encoderDrive(DRIVE_SPEED, 20, 20);
+                            if (skyObject){
+                                encoderDrive(DRIVE_SPEED, 60, 60);
                             }
 
-                            encoderDrive(TURN_SPEED, -5, 5);
-                            ANGLE = ANGLE + 1;
-                            sleep(1000);
+                            Rotate();
+
+                            if (skyObject && (ANGLE == 1)){
+                                encoderDrive(DRIVE_SPEED, 50, 50);
+                            }
+
                         }
+
                         telemetry.update();
                     }
                 }
@@ -199,7 +198,7 @@ public class Detection_Test extends LinearOpMode {
             HWA.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-            sleep(500);   // optional pause after each move
+            //sleep(500);   // optional pause after each move
         }
     }
 
@@ -232,8 +231,13 @@ public class Detection_Test extends LinearOpMode {
             HWA.LiftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             HWA.LiftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(1000);
+            //sleep(1000);
         }
+    }
+
+    private void Rotate(){
+        ANGLE++;
+        encoderDrive(TURN_SPEED, 4, 4);
     }
 
     //Function to bring down the Arm
