@@ -2,12 +2,10 @@ package org.firstinspires.ftc.teamcode.Team_6899;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "Team_6899", group="TeleOp")
-
 public class Team_6899 extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
