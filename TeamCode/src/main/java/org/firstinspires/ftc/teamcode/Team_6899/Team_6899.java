@@ -2,26 +2,29 @@ package org.firstinspires.ftc.teamcode.Team_6899;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "Team_6899", group="Teleop")
+@TeleOp(name = "Team_6899", group="TeleOp")
 
 public class Team_6899 extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private Hardware_6899 HW = new Hardware_6899();
 
+
     @Override
     public void runOpMode() {
 
-        HW.init(hardwareMap); //inititalizing Hardware before start
-
+        telemetry.addLine("Status: Initialised");
         waitForStart();
 
-        telemetry.addLine("           Robot: Team 6899");
-        telemetry.addLine("************Status: Running***********");
+        telemetry.addLine("Robot: Team 6899");
+        telemetry.addLine("Status: Running");
         telemetry.update();
+
+        waitForStart();
 
         while (opModeIsActive()) {
             WheelControl();
@@ -34,11 +37,13 @@ public class Team_6899 extends LinearOpMode {
         }
     }
 
+
     //Function To Control Robot Movement
     private void WheelControl() {
+
         double PowerL, PowerR;
-       PowerL = Range.clip(gamepad1.left_stick_y, -0.8, 0.8);
-       PowerR = Range.clip(gamepad1.right_stick_y, -0.8, 0.8);
+        PowerL = Range.clip(gamepad1.left_stick_y, -0.8, 0.8);
+        PowerR = Range.clip(gamepad1.right_stick_y, -0.8, 0.8);
 
 
         //Power for Left Motors
@@ -50,9 +55,11 @@ public class Team_6899 extends LinearOpMode {
         HW.FR.setPower(-PowerR);
         HW.BR.setPower(-PowerR);
 
+
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", PowerL, PowerR);
         telemetry.update();
     }
+
 
     //Function to control intake Servos
     private void Collection() {
@@ -62,15 +69,15 @@ public class Team_6899 extends LinearOpMode {
         } else if (gamepad2.a) {
             HW.ServoR.setPosition(1);
             HW.ServoL.setPosition(0);
-        }else{
+        } else {
             HW.ServoR.setPosition(0.5);
             HW.ServoL.setPosition(0.5);
         }
     }
 
 
-    //Function to Control both Lift Motors
-    private void LiftSystem(){
+    //Function to Control both Lift   HW.SubLifts
+    private void LiftSystem() {
         double PowerLift;
         PowerLift = Range.clip(gamepad2.left_stick_y, -1, 1);
         HW.LiftL.setPower(PowerLift);
@@ -79,11 +86,13 @@ public class Team_6899 extends LinearOpMode {
 
 
     //Function to control Secondary Lift Motor
-    private void SecondaryLift(){
+    private void SecondaryLift() {
         double PowerSL;
         PowerSL = Range.clip(gamepad2.right_stick_y, -0.9, 0.9);
         HW.SubLift.setPower(PowerSL);
-    }
 
+    }
 }
+
+
 

@@ -15,6 +15,7 @@ public class Hardware_6899 {
     public DcMotor LiftR = null;
     public DcMotor LiftL = null;
     public DcMotor SubLift = null;
+
     public Servo ServoR = null;
     public Servo ServoL = null;
 
@@ -46,7 +47,7 @@ public class Hardware_6899 {
         BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LiftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LiftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        SubLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
 
         //Directions set for all drive Motors
@@ -57,5 +58,8 @@ public class Hardware_6899 {
         LiftR.setDirection(DcMotor.Direction.REVERSE);
         LiftL.setDirection(DcMotor.Direction.FORWARD);
         SubLift.setDirection(DcMotor.Direction.FORWARD);
+        LiftR.setDirection(DcMotor.Direction.FORWARD);
+        LiftL.setDirection(DcMotor.Direction.REVERSE);
+
     }
 }

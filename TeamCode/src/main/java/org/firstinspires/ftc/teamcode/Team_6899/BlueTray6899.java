@@ -31,6 +31,7 @@ public class BlueTray6899 extends LinearOpMode {
         telemetry.update();
 
 
+        //Stop and Reset the Encoders at the Initialising Stage
         HWA.FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         HWA.FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         HWA.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -38,6 +39,8 @@ public class BlueTray6899 extends LinearOpMode {
         HWA.LiftL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         HWA.LiftR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+
+        //Turn on Run using Encoder before Start
         HWA.FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         HWA.FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         HWA.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -49,7 +52,11 @@ public class BlueTray6899 extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+
+        //Run though each step of the Autonomous
         encoderDrive(DRIVE_SPEED,  47, 47);
+        telemetry.addLine("Chav says 47 inches forward!");
+        telemetry.update();
         encoderDrive(TURN_SPEED,   12, -12);
         encoderLift(LIFT_SPEED, 14);
         encoderDrive(DRIVE_SPEED,  10, 10);
@@ -63,7 +70,8 @@ public class BlueTray6899 extends LinearOpMode {
         encoderLift(LIFT_SPEED, -13);
         encoderDrive(DRIVE_SPEED,  -45, -45);
 
-        telemetry.addData("Steps > ", "Complete");
+
+        telemetry.addLine("All steps Complete");
         telemetry.update();
 
         sleep(3000);
@@ -102,6 +110,8 @@ public class BlueTray6899 extends LinearOpMode {
 
 
             while (opModeIsActive() && (runtime.seconds() < 3.0) && (HWA.FL.isBusy() && HWA.BL.isBusy() && HWA.FR.isBusy() && HWA.BR.isBusy())) {
+                telemetry.addLine("Chav has granted this robot the permission to move.");
+                telemetry.addLine("Therefore, move!");
                 telemetry.update();
             }
 
