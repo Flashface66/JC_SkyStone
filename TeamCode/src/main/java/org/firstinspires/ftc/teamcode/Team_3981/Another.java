@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Team_3981;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 @Autonomous
+@Disabled
 public class Another extends LinearOpMode {
 
     private static final double CPMR = 1440;    // TETRIX Motor Encoder

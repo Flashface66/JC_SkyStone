@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team_6899;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -11,11 +11,12 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
-@Autonomous(name = "TFOD_6899", group = "SkystoneSide")
+@TeleOp(name = "Detection_Test", group = "SkystoneSide")
 
-public class TFOD_6899 extends LinearOpMode {
 
-    //TFOD_6899 Variables Declarations
+public class Detection_Test extends LinearOpMode {
+
+    //Variables Declarations
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
@@ -34,6 +35,7 @@ public class TFOD_6899 extends LinearOpMode {
     private static final double     DRIVE_SPEED            = 0.8;
     private static final double     TURN_SPEED             = 0.7;
     private static final double     LIFT_SPEED             = 0.8;
+    private int                     ANGLE;
 
 
     @Override
@@ -69,55 +71,44 @@ public class TFOD_6899 extends LinearOpMode {
             tfod.activate();
         }
 
-        telemetry.addData(">", "Press Play to start Autonomous");
+        telemetry.addData(">", "Press Play to start Tracking");
         telemetry.update();
 
         waitForStart();
 
-        //encoderDrive(DRIVE_SPEED, 5, 5);
-        //encoderLift(LIFT_SPEED, 20);
+        encoderDrive(DRIVE_SPEED, 7, 7);
+        encoderLift(LIFT_SPEED, 15);
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-
                 if (tfod != null) {
-                    // getUpdatedRecognitions() will return null if no new information is available since
-                    // the last time that call was made.
-
-                    encoderDrive(TURN_SPEED, -5, 5);
-                    sleep(1500);
-
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                         telemetry.addData("# of Objects Detected", updatedRecognitions.size());
 
-                        // step through the list of recognitions and display boundary info.
+
                         int i = 0;
+                        boolean skyObject;
 
                         for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i),     "%.03f , %.03f", recognition.getLeft(),  recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f", recognition.getRight(), recognition.getBottom());
-                            boolean skystone;
-                            skystone = (recognition.getLabel().equals(LABEL_SECOND_ELEMENT));
+                            telemetry.addData(String.format("  left,top (%d)", i),    "%.03f , %.03f", recognition.getLeft(),  recognition.getTop());
+                            telemetry.addData(String.format("  right,bottom (%d)", i),"%.03f , %.03f", recognition.getRight(), recognition.getBottom());
+                            telemetry.update();
 
-                            if ((skystone) && (runtime.seconds() < 6)){
-                                encoderLift(LIFT_SPEED, -18);
-                                encoderDrive(DRIVE_SPEED, 40, 40);
+                            skyObject = (recognition.getLabel().equals(LABEL_SECOND_ELEMENT));
+                            if (skyObject){
+                                encoderDrive(DRIVE_SPEED, 60, 60);
+                            }
 
-                                servoClose();
-                                encoderDrive(DRIVE_SPEED, -40, -40);
-                                encoderDrive(TURN_SPEED, -12, 12);
-                                encoderDrive(DRIVE_SPEED, -90, -90);
-                                encoderDrive(TURN_SPEED, 12, -12);
-                                encoderLift(LIFT_SPEED, 15);
+                            Rotate();
 
-
-                            }else{
-                                encoderDrive(TURN_SPEED, 4, 4);
+                            if (skyObject && (ANGLE == 1)){
+                                encoderDrive(DRIVE_SPEED, 50, 50);
                             }
 
                         }
+
                         telemetry.update();
                     }
                 }
@@ -148,7 +139,7 @@ public class TFOD_6899 extends LinearOpMode {
     //Initialize the TensorFlow Object Detection engine.
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfodParameters.minimumConfidence = 0.8;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
@@ -189,9 +180,7 @@ public class TFOD_6899 extends LinearOpMode {
             HWA.BR.setPower(Math.abs(speed));
 
 
-            while (opModeIsActive() &&
-                    (runtime.seconds() < 3.0) &&
-                    (HWA.FL.isBusy() && HWA.BL.isBusy() && HWA.FR.isBusy() && HWA.BR.isBusy())) {
+            while (opModeIsActive() && (runtime.seconds() < 3.0) && (HWA.FL.isBusy() && HWA.BL.isBusy() && HWA.FR.isBusy() && HWA.BR.isBusy())) {
                 telemetry.update();
             }
 
@@ -209,7 +198,7 @@ public class TFOD_6899 extends LinearOpMode {
             HWA.BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-            sleep(200);   // optional pause after each move
+            //sleep(500);   // optional pause after each move
         }
     }
 
@@ -242,25 +231,26 @@ public class TFOD_6899 extends LinearOpMode {
             HWA.LiftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             HWA.LiftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(500);
+            //sleep(1000);
         }
+    }
+
+    private void Rotate(){
+        ANGLE++;
+        encoderDrive(TURN_SPEED, 4, 4);
     }
 
     //Function to bring down the Arm
     private void servoClose(){
         HWA.ServoR.setPosition(1);
         HWA.ServoL.setPosition(0);
-        sleep(1800);
-        HWA.ServoR.setPosition(0.5);
-        HWA.ServoL.setPosition(0.5);
+        sleep(1000);
     }
 
     //Function to bring up the Arm
     private void servoOpen(){
         HWA.ServoR.setPosition(0);
         HWA.ServoL.setPosition(1);
-        sleep(1800);
-        HWA.ServoR.setPosition(0.5);
-        HWA.ServoL.setPosition(0.5);
+        sleep(1000);
     }
 }

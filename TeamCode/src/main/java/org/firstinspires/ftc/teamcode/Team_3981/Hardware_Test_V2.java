@@ -2,16 +2,17 @@ package org.firstinspires.ftc.teamcode.Team_3981;
 
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-
-
-public class Hardware_Test {
+public class Hardware_Test_V2 {
 
     public DcMotor Right   = null;
     public DcMotor Left    = null;
+    public DcMotor RightB  = null;
+    public DcMotor LeftB   = null;
     public DcMotor Claw1   = null;
     public DcMotor Claw2   = null;
     public Servo   Rotate1 = null;
@@ -21,7 +22,7 @@ public class Hardware_Test {
     public HardwareMap hwmap;
 
 
-    Hardware_Test(){
+    Hardware_Test_V2(){
 
     }
 
@@ -35,6 +36,8 @@ public class Hardware_Test {
 
         Right   = hwmap.get(DcMotor.class,"Right");
         Left    = hwmap.get(DcMotor.class,"Left");
+        RightB  = hwmap.get(DcMotor.class,"RightB");
+        LeftB   = hwmap.get(DcMotor.class,"LeftB");
         Claw1   = hwmap.get(DcMotor.class, "Claw1");
         Claw2   = hwmap.get(DcMotor.class, "Claw2");
         Rotate1 = hwmap.get(Servo.class, "Rotate1");
@@ -48,10 +51,12 @@ public class Hardware_Test {
      */
 
 
-        //Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RightB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LeftB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Claw1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Claw2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       // Claw2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     /*
       Setting the direction for each motor.
      */
@@ -61,8 +66,8 @@ public class Hardware_Test {
         Claw2.setDirection(DcMotor.Direction.FORWARD);
         Left.setDirection(DcMotor.Direction.REVERSE);
         Right.setDirection(DcMotor.Direction.FORWARD);
-        Left.setDirection(DcMotor.Direction.REVERSE);
-        Right.setDirection(DcMotor.Direction.FORWARD);
+        LeftB.setDirection(DcMotor.Direction.FORWARD);
+        RightB.setDirection(DcMotor.Direction.REVERSE);
     }
 
 }

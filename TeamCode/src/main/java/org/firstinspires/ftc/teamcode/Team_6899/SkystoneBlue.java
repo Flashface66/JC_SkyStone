@@ -5,20 +5,20 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="SkystoneRed - 6899u")
-public class SkystoneRed extends LinearOpMode {
+@Autonomous(name="SkystoneBlue - 6899")
+public class SkystoneBlue extends LinearOpMode {
 
     private Hardware_6899 HWA       = new Hardware_6899();   // Uses my hardware
     private ElapsedTime   runtime   = new ElapsedTime();
 
-    private static final double     COUNTS_PER_MOTOR_REV   = 1120;    // eg: TETRIX Motor Encoder
-    private static final double     DRIVE_GEAR_REDUCTION   = 1.0 ;    // This is < 1.0 if geared UP
-    private static final double     WHEEL_DIAMETER_INCHES  = 4.0 ;    // For figuring circumference
+    private static final double     COUNTS_PER_MOTOR_REV   = 1120;
+    private static final double     DRIVE_GEAR_REDUCTION   = 1.0 ;
+    private static final double     WHEEL_DIAMETER_INCHES  = 4.0 ;
 
     private static final double     COUNTS_PER_INCH        = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
 
-    private static final double     DRIVE_SPEED            = 0.6;
-    private static final double     TURN_SPEED             = 0.7;
+    private static final double     DRIVE_SPEED            = 0.7;
+    private static final double     TURN_SPEED             = 0.8;
     private static final double     LIFT_SPEED             = 0.6;
 
     @Override
@@ -45,7 +45,7 @@ public class SkystoneRed extends LinearOpMode {
         HWA.LiftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         HWA.LiftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
+        telemetry.addData("First Path",  "Starting at %7d :%7d",
                 HWA.FR.getCurrentPosition(),
                 HWA.FL.getCurrentPosition());
         telemetry.update();
@@ -59,16 +59,16 @@ public class SkystoneRed extends LinearOpMode {
         sleep(250);
         encoderDrive(DRIVE_SPEED, -25, -25);
         encoderDrive(TURN_SPEED,   12, -12);
-        encoderDrive(DRIVE_SPEED,  70, 70);
+        encoderDrive(DRIVE_SPEED,  80, 80);
         encoderLift(LIFT_SPEED, 14);
-        encoderDrive(TURN_SPEED,   -12, 12);
+        encoderDrive(TURN_SPEED,   -14, 14);
         encoderDrive(DRIVE_SPEED,  20, 20);
-        encoderLift(LIFT_SPEED, -12);
-        encoderDrive(DRIVE_SPEED, -25, -35);
+            //encoderLift(LIFT_SPEED, -12);
         servoOpen();
         sleep(250);
-        encoderLift(LIFT_SPEED, 14);
         encoderDrive(DRIVE_SPEED, -25, -25);
+            //encoderLift(LIFT_SPEED, 14);
+        encoderDrive(DRIVE_SPEED, -25, 12);
         telemetry.addData("Path0", "Complete");
         telemetry.update();
 
