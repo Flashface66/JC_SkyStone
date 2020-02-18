@@ -14,26 +14,29 @@ public class Hardware_6899 {
     public DcMotor BL = null;
     public DcMotor LiftR = null;
     public DcMotor LiftL = null;
+    public DcMotor SubLift = null;
+
     public Servo ServoR = null;
     public Servo ServoL = null;
 
-    public HardwareMap hwmap2;
+    public HardwareMap HwMap;
 
     Hardware_6899(){}
 
-    public void init (HardwareMap thehwmap2){
+    public void init (HardwareMap theHwMap){
 
-        hwmap2    = thehwmap2;
+        HwMap = theHwMap;
 
         //Motor and Servo names to be used when configuring the Robot
-        FR      = hwmap2.get(DcMotor.class, "FR");
-        FL      = hwmap2.get(DcMotor.class, "FL");
-        BR      = hwmap2.get(DcMotor.class, "BR");
-        BL      = hwmap2.get(DcMotor.class, "BL");
-        LiftR   = hwmap2.get(DcMotor.class, "LiftR");
-        LiftL   = hwmap2.get(DcMotor.class, "LiftL");
-        ServoR  = hwmap2.get(Servo.class,   "ServoL");
-        ServoL  = hwmap2.get(Servo.class,   "ServoR");
+        FR      = HwMap.get(DcMotor.class, "FR");
+        FL      = HwMap.get(DcMotor.class, "FL");
+        BR      = HwMap.get(DcMotor.class, "BR");
+        BL      = HwMap.get(DcMotor.class, "BL");
+        LiftR   = HwMap.get(DcMotor.class, "LiftR");
+        LiftL   = HwMap.get(DcMotor.class, "LiftL");
+        SubLift = HwMap.get(DcMotor.class, "SubLift");
+        ServoR  = HwMap.get(Servo.class,   "ServoL");
+        ServoL  = HwMap.get(Servo.class,   "ServoR");
         //.
 
 
@@ -48,10 +51,13 @@ public class Hardware_6899 {
 
 
         //Directions set for all drive Motors
-        FR.setDirection(DcMotor.Direction.FORWARD);
         FL.setDirection(DcMotor.Direction.REVERSE);
-        BR.setDirection(DcMotor.Direction.FORWARD);
         BL.setDirection(DcMotor.Direction.REVERSE);
+        FR.setDirection(DcMotor.Direction.FORWARD);
+        BR.setDirection(DcMotor.Direction.FORWARD);
+        LiftR.setDirection(DcMotor.Direction.REVERSE);
+        LiftL.setDirection(DcMotor.Direction.FORWARD);
+        SubLift.setDirection(DcMotor.Direction.FORWARD);
         LiftR.setDirection(DcMotor.Direction.FORWARD);
         LiftL.setDirection(DcMotor.Direction.REVERSE);
 

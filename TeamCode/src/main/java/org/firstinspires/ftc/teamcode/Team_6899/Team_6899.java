@@ -2,67 +2,60 @@ package org.firstinspires.ftc.teamcode.Team_6899;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "Team_6899", group="Teleop")
-
+@TeleOp(name = "Team_6899", group="TeleOp")
 public class Team_6899 extends LinearOpMode {
 
+    private ElapsedTime runtime = new ElapsedTime();
     private Hardware_6899 HW = new Hardware_6899();
-    private DcMotor SubLift =null;
-    private int max = 750;
-    private int min = 0;
+
 
     @Override
     public void runOpMode() {
-        SubLift = hardwareMap.get(DcMotor.class, "SubLift");
 
-        SubLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        SubLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        telemetry.addLine("Status: Initialised");
+        waitForStart();
 
-        telemetry.addLine("           Robot: Team 6899");
-        telemetry.addLine("************Status: Running***********");
-
-
-
-
-        SubLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        SubLift.setDirection(DcMotor.Direction.REVERSE);
-
-        HW.init(hardwareMap); //inititalizing Hardware before start
+        telemetry.addLine("Robot: Team 6899");
+        telemetry.addLine("Status: Running");
+        telemetry.update();
 
         waitForStart();
 
         while (opModeIsActive()) {
             WheelControl();
-
             Collection();
-
             LiftSystem();
-
             SecondaryLift();
+
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.update();
         }
     }
 
+
     //Function To Control Robot Movement
     private void WheelControl() {
-        double Power1, Power2;
-        Power1 = Range.clip(gamepad1.left_stick_y, -0.8, 0.8);
-        Power2 = Range.clip(gamepad1.right_stick_y,-0.8, 0.8);
+
+        double PowerL, PowerR;
+        PowerL = Range.clip(gamepad1.left_stick_y, -0.8, 0.8);
+        PowerR = Range.clip(gamepad1.right_stick_y, -0.8, 0.8);
 
 
-        //Power for Left   HW.SubLifts
-        HW.FL.setPower(-Power1);
-        HW.BL.setPower(-Power1);
+        //Power for Left Motors
+        HW.FL.setPower(-PowerL);
+        HW.BL.setPower(-PowerL);
 
 
-        //Power for Right   HW.SubLifts
-        HW.FR.setPower(-Power2);
-        HW.BR.setPower(-Power2);
+        //Power for Right Motors
+        HW.FR.setPower(-PowerR);
+        HW.BR.setPower(-PowerR);
 
+
+        telemetry.addData("Motors", "left (%.2f), right (%.2f)", PowerL, PowerR);
+        telemetry.update();
     }
 
 
@@ -74,7 +67,7 @@ public class Team_6899 extends LinearOpMode {
         } else if (gamepad2.a) {
             HW.ServoR.setPosition(1);
             HW.ServoL.setPosition(0);
-        }else{
+        } else {
             HW.ServoR.setPosition(0.5);
             HW.ServoL.setPosition(0.5);
         }
@@ -82,47 +75,22 @@ public class Team_6899 extends LinearOpMode {
 
 
     //Function to Control both Lift   HW.SubLifts
-    private void LiftSystem(){
-        double PowerL;
-        PowerL = Range.clip(gamepad2.left_stick_y, -1, 1);
-        HW.LiftL.setPower(PowerL);
-        HW.LiftR.setPower(PowerL);
+    private void LiftSystem() {
+        double PowerLift;
+        PowerLift = Range.clip(gamepad2.left_stick_y, -1, 1);
+        HW.LiftL.setPower(PowerLift);
+        HW.LiftR.setPower(PowerLift);
     }
 
-    //Function to control Secondary Lift   HW.SubLift
-    private void SecondaryLift(){
-       // double PowerSL;
-       // PowerSL = Range.clip(gamepad2.right_stick_y, -0.8, 0.8);
-       // HW.SubLift.setPower(PowerSL);
 
-        telemetry.addData("Current", "%7d ", SubLift.getCurrentPosition());
-
-
-            if(gamepad2.left_bumper && SubLift.getCurrentPosition() < max) {
-
-                SubLift.setPower(0.8);
-                telemetry.addData("End", "Running to %7d ", SubLift.getCurrentPosition());
-;
-                telemetry.update();
-
-            }
-
-            if(gamepad2.right_bumper && SubLift.getCurrentPosition() < min ) {
-
-                SubLift.setPower(-0.8);
-                telemetry.addData("End", "Running to %7d ", SubLift.getCurrentPosition());
-
-                telemetry.update();
-
-            }
-            else{
-                SubLift.setPower(0);
-            }
-
-
-        }
+    //Function to control Secondary Lift Motor
+    private void SecondaryLift() {
+        double PowerSL;
+        PowerSL = Range.clip(gamepad2.right_stick_y, -0.9, 0.9);
+        HW.SubLift.setPower(PowerSL);
 
     }
+}
 
 
 
