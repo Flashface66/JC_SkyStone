@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name = "Pushbot: Blue Build", group = "Auto")
-public class BL_Plate extends LinearOpMode {
+@Autonomous(name = "Pushbot:Experimental", group = "Auto")
+public class Experimental extends LinearOpMode {
 
     /* Declare OpMode members. */
     private Hardware_Test_V2 RB = new Hardware_Test_V2();   // Use a Pushbot's hardware
@@ -17,7 +17,7 @@ public class BL_Plate extends LinearOpMode {
     private static final double COUNTS_PER_MOTOR_HEX = 288;
     private static final double DRIVE_GEAR_REDUCTION = 0.3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333;     // This is < 1.0 if geared UP
     private static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    private static final double CIRCUMFERENCE_INCHES = (WHEEL_DIAMETER_INCHES * Math.PI);
+    private static final double CIRCUMFRENCE_INCHES = WHEEL_DIAMETER_INCHES * Math.PI;
     private static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION);
     private static final double COUNTS_PER_INCH_TETRIX = (COUNTS_PER_MOTOR_TETRIX * DRIVE_GEAR_REDUCTION);
     private static final double DRIVE_SPEED = 0.3;
@@ -57,18 +57,8 @@ public class BL_Plate extends LinearOpMode {
 
 
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        lift(1, 1200);
-        encoderDrive(DRIVE_SPEED, 47, 47);
-        encoderDrive(DRIVE_SPEED, 13.94, -13.94);
-        encoderDrive(DRIVE_SPEED, 5, 5);
-        lift(0.5, -1200);
-        encoderDrive(DRIVE_SPEED, -5, -5);
-        encoderDrive(DRIVE_SPEED, 35, -35);
-        encoderDrive(DRIVE_SPEED, 22, 22);
-        lift(1, 600);
-        encoderDrive(DRIVE_SPEED, -5, -5);
-        encoderDrive(DRIVE_SPEED, -13.94, 13.94);
-        encoderDrive(DRIVE_SPEED, -34, -34);
+
+        encoderDrive(DRIVE_SPEED, -46, -46);
 
 
         // send the info back to driver station using telemetry function.
@@ -86,8 +76,8 @@ public class BL_Plate extends LinearOpMode {
     public void encoderDrive(double speed,
                              double leftInches, double rightInches
     ) {
-        double rightRotationsNeeded = rightInches / CIRCUMFERENCE_INCHES;
-        double leftRotationsNeeded = leftInches / CIRCUMFERENCE_INCHES;
+        double rightRotationsNeeded = rightInches / CIRCUMFRENCE_INCHES;
+        double leftRotationsNeeded = leftInches / CIRCUMFRENCE_INCHES;
 
         int newLeftTarget = RB.Left.getCurrentPosition() + (int) (leftRotationsNeeded * COUNTS_PER_INCH);
         int newRightTarget = RB.Right.getCurrentPosition() + (int) (rightRotationsNeeded * COUNTS_PER_INCH);

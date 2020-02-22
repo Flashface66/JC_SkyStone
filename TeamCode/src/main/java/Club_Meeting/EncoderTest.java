@@ -58,6 +58,6 @@ public class EncoderTest extends LinearOpMode {
         setDrivePower(0.5,0.5);
         sleep(5000);
         setDrivePower(0,0);
-        sleep(25000);
+        sleep(2500);
         }
 }

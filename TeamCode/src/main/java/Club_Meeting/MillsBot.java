@@ -17,7 +17,7 @@ public class MillsBot extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor rightForward = null;
     private DcMotor rightBackward = null;
-   private DcMotor leftForward;
+    private DcMotor leftForward;
     private DcMotor leftBackward;
     double power;
 

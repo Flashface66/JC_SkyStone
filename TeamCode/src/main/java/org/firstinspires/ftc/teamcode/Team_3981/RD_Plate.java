@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name = "Pushbot: Blue Build", group = "Auto")
+@Autonomous(name = "Pushbot: Red Plate", group = "Auto")
 public class RD_Plate extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -59,7 +59,7 @@ public class RD_Plate extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         lift(1, 1200);
         encoderDrive(DRIVE_SPEED, 47, 47);
-        encoderDrive(DRIVE_SPEED, -14, 14);
+        encoderDrive(DRIVE_SPEED, -13.94, 13.94);
         encoderDrive(DRIVE_SPEED, 5, 5);
         lift(0.5, -1200);
         encoderDrive(DRIVE_SPEED, -9, -9);
@@ -67,7 +67,7 @@ public class RD_Plate extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 22, 22);
         lift(1, 600);
         encoderDrive(DRIVE_SPEED, -5, -5);
-        encoderDrive(DRIVE_SPEED, 14, -14);
+        encoderDrive(DRIVE_SPEED, 13.94, -13.94);
         encoderDrive(DRIVE_SPEED, -34, -34);
 
 
