@@ -58,7 +58,7 @@ public class Reverse extends LinearOpMode {
 
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED, -46, -46);
+        encoderDrive(DRIVE_SPEED, -40, -40);
 
 
         // send the info back to driver station using telemetry function.
