@@ -2,13 +2,13 @@ package org.firstinspires.ftc.teamcode.Team_3981;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
-@TeleOp(name = "Mecanaum")
+
+@TeleOp(name = "FrittazMec")
 public class MecanumDrive extends LinearOpMode {
 
 
-    private HardwareWorlds RB  = new HardwareWorlds();
+    private Hardware_Test_V2 RB = new Hardware_Test_V2();
 
         private final boolean shouldMecanumDrive = true;
 
@@ -18,11 +18,10 @@ public class MecanumDrive extends LinearOpMode {
 
             waitForStart();
             while (opModeIsActive()){
-                telemetry.addLine("Chav is the best");
 
                 Movement_System();
 
-                Lift();
+                ClawMove();
                 telemetry.update();
             }
 
@@ -39,42 +38,52 @@ public class MecanumDrive extends LinearOpMode {
 
             // Convert desired motion to wheel powers, with power clamping.
             Mecanum.Wheels wheels = Mecanum.motionToWheels(motion);
-            RB.FrontLeft.setPower(wheels.frontLeft);
-            RB.FrontRight.setPower(wheels.frontRight);
-            RB.BackLeft.setPower(wheels.backLeft);
-            RB.BackRight.setPower(wheels.backRight);
+            RB.Left .setPower(wheels.frontLeft);
+            RB.Right.setPower(wheels.frontRight);
+            RB.LeftB.setPower(wheels.backLeft);
+            RB.RightB.setPower(wheels.backRight);
 
         }
 
     }
 
-    private void Lift(){
-            if (gamepad1.left_bumper){
-                RB.Lift1.setPower(1);
-                RB.Lift2.setPower(1);
-            }
-            if (gamepad1.right_bumper){
-                RB.Lift1.setPower(-0.4);
-                RB.Lift2.setPower(-0.4);
-            }
-            else{
-                RB.Lift1.setPower(0);
-                RB.Lift2.setPower(0);
-            }
+    private void ClawMove() {
 
-        if (gamepad1.y){
-            RB.Rotate.setPosition(1);
 
+        if (gamepad2.left_bumper){
+            RB.Claw2.setPower(1);
+        }else if (gamepad2.right_bumper){
+
+            RB.Claw2.setPower(-1);
+        }else {
+
+            RB.Claw2.setPower(0);
+        }
+
+
+
+
+        if (gamepad2.a) {
+            RB.Rotate1.setPosition(0.5);
+        }
+        if (gamepad2.b){
+            RB.Rotate1.setPosition(1);
+        }
+
+        if (gamepad2.y){
+            RB.Rotate2.setPosition(1);
+            RB.Rotate1.setPosition(0);
 
         }
-        else if (gamepad1.x){
-            RB.Rotate.setPosition(0);
-
+        else if (gamepad2.x){
+            RB.Rotate2.setPosition(0);
+            RB.Rotate1.setPosition(1);
         }
         else{
-            RB.Rotate.setPosition(0.5);
-
+            RB.Rotate2.setPosition(0.5);
+            RB.Rotate1.setPosition(0.5);
         }
+
     }
 
 
