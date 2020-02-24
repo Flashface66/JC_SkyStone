@@ -100,8 +100,8 @@ public class BL_Plate extends LinearOpMode {
 
         RB.Left.setTargetPosition(newLeftTarget);
         RB.Right.setTargetPosition(newRightTarget);
-        RB.LeftB.setTargetPosition(newLeftTargetTETRIX);
-        RB.RightB.setTargetPosition(newRightTargetTETRIX);
+        RB.LeftB.setTargetPosition(newLeftTarget);
+        RB.RightB.setTargetPosition(newRightTarget);
 
 
         RB.Left.setPower(-speed);
@@ -119,8 +119,8 @@ public class BL_Plate extends LinearOpMode {
         while ((RB.Left.isBusy() && RB.Right.isBusy() && RB.LeftB.isBusy() && RB.RightB.isBusy())) {
 
             // Display it for the driver.
-            telemetry.addData("AndyMsrk Target", "Running to %7d :%7d", newLeftTarget, newRightTarget);
-            telemetry.addData("TETRIX Target", "Running to %7d :%7d", newLeftTargetTETRIX, newRightTargetTETRIX);
+            telemetry.addData("AndyMark Target", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+            //telemetry.addData("TETRIX Target", "Running to %7d :%7d", newLeftTargetTETRIX, newRightTargetTETRIX);
             telemetry.addData("Current Values", "Running at %7d :%7d :  %7d :%7d",
                     RB.Left.getCurrentPosition(),
                     RB.Right.getCurrentPosition(),

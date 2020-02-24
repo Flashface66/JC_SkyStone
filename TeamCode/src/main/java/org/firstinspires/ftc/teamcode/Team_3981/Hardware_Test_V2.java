@@ -66,8 +66,8 @@ public class Hardware_Test_V2 {
         Claw2.setDirection(DcMotor.Direction.FORWARD);
         Left.setDirection(DcMotor.Direction.REVERSE);
         Right.setDirection(DcMotor.Direction.FORWARD);
-        LeftB.setDirection(DcMotor.Direction.FORWARD);
-        RightB.setDirection(DcMotor.Direction.REVERSE);
+        LeftB.setDirection(DcMotor.Direction.REVERSE);
+        RightB.setDirection(DcMotor.Direction.FORWARD );
     }
 
 }
