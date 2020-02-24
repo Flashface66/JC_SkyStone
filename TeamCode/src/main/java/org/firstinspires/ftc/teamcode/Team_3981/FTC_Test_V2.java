@@ -2,14 +2,13 @@ package org.firstinspires.ftc.teamcode.Team_3981;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "FTC_Prototype_V2", group = "Teleop")
     public class FTC_Test_V2 extends LinearOpMode {
-        enum state{ Odd, Even }state Banger;
+        enum state{ Slow, Fast }state Motion_Variable;
         private Hardware_Test_V2 RB = new Hardware_Test_V2();
-        boolean changed = false;
+
 
 
 
@@ -28,77 +27,32 @@ import com.qualcomm.robotcore.util.Range;
             while (opModeIsActive()){
 
                 if (gamepad1.a){
-                    Banger = state.Even;
+                    Motion_Variable = state.Fast;
                 }else if (gamepad1.b){
-                    Banger = state.Odd;
+                    Motion_Variable = state.Slow;
                 }
 
-                //Movements();
-                gaza();
+
+                Advanced_Movement();
                 ClawMove();
 
             }
 
         }
 
-        private void Movements() {
-            double leftPower ;
-            double rightPower;
-
-            if (gamepad1.a){
-                changed=!changed;
-            }
 
 
-
-            if(changed = true) {
-                // leftPower = Range.clip(gamepad1.left_stick_y, -0.3, 0.3);
-                //rightPower = Range.clip(gamepad1.right_stick_y, -0.3, 0.3);
+        private void Advanced_Movement(){
 
 
-                RB.Right.setPower(-gamepad1.right_stick_y * 0.5);
-                RB.Left.setPower(-gamepad1.left_stick_y * 0.5);
-                RB.RightB.setPower(-gamepad1.right_stick_y * 0.5);
-                RB.LeftB.setPower(-gamepad1.left_stick_y * 0.5);
-
-                //changed = true;
-            }
-            else{
-                //leftPower = Range.clip(gamepad1.left_stick_y, -0.7, 0.7);
-                // rightPower = Range.clip(gamepad1.right_stick_y, -0.7, 0.7);
-
-                RB.Right.setPower(-Range.clip(gamepad1.right_stick_y, -0.9, 0.9));
-                RB.Left.setPower(-Range.clip(gamepad1.left_stick_y, -0.9, 0.9));
-                RB.RightB.setPower(-Range.clip(gamepad1.right_stick_y, -0.9, 0.9));
-                RB.LeftB.setPower(-Range.clip(gamepad1.left_stick_y, -0.9, 0.9));
-
-
-                //changed = false;
-
-            }
-           //leftPower = Range.clip(gamepad1.left_stick_y, -0.7, 0.7);
-            // rightPower = Range.clip(gamepad1.right_stick_y, -0.7, 0.7);
-
-           // RB.Right.setPower(-rightPower);
-           // RB.Left.setPower(-leftPower);
-           // RB.RightB.setPower(-rightPower);
-            // RB.LeftB.setPower(-leftPower);
-
-            
-
-        }
-
-        private void gaza(){
-
-
-            if (Banger == state.Even){
+            if (Motion_Variable == state.Fast){
                 RB.Right.setPower(-Range.clip(gamepad1.right_stick_y, -0.9, 0.9));
                 RB.Left.setPower(-Range.clip(gamepad1.left_stick_y, -0.9, 0.9));
                 RB.RightB.setPower(-Range.clip(gamepad1.right_stick_y, -0.9, 0.9));
                 RB.LeftB.setPower(-Range.clip(gamepad1.left_stick_y, -0.9, 0.9));
                 telemetry.addLine("Speed");
             }
-            if (Banger == state.Odd) {
+            if (Motion_Variable == state.Slow) {
                 RB.Right.setPower(-gamepad1.right_stick_y * 0.5);
                 RB.Left.setPower(-gamepad1.left_stick_y * 0.5);
                 RB.RightB.setPower(-gamepad1.right_stick_y * 0.5);
