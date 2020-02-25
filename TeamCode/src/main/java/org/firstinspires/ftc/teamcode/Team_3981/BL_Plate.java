@@ -57,15 +57,15 @@ public class BL_Plate extends LinearOpMode {
 
 
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        lift(1, 1200);
+     //   lift(1, 1200);
         encoderDrive(DRIVE_SPEED, 52, 52);
-        encoderDrive(DRIVE_SPEED, 13.94, -13.94);
+        encoderDrive(DRIVE_SPEED, 13, -13);
         encoderDrive(DRIVE_SPEED, 5, 5);
-        lift(0.5, -1200);
+       // lift(0.5, -1200);
         encoderDrive(DRIVE_SPEED, -5, -5);
         encoderDrive(TURN_SPEED, 35, -35);
         encoderDrive(DRIVE_SPEED, 27, 27);
-        lift(1, 600);
+       // lift(1, 600);
         encoderDrive(DRIVE_SPEED, -5, -5);
         encoderDrive(DRIVE_SPEED, -13.94, 13.94);
         encoderDrive(DRIVE_SPEED, -39, -39);
@@ -98,14 +98,14 @@ public class BL_Plate extends LinearOpMode {
         // Determine new target position, and pass to motor controller
 
 
-        RB.Left.setTargetPosition(newLeftTarget);
-        RB.Right.setTargetPosition(newRightTarget);
+        RB.Left.setTargetPosition(newLeftTargetTETRIX);
+        RB.Right.setTargetPosition(newRightTargetTETRIX);
         RB.LeftB.setTargetPosition(newLeftTargetTETRIX);
         RB.RightB.setTargetPosition(newRightTargetTETRIX);
 
 
-        RB.Left.setPower(-speed);
-        RB.Right.setPower(speed);
+        RB.Left.setPower(speed);
+        RB.Right.setPower(-speed);
         RB.LeftB.setPower(speed);
         RB.RightB.setPower(-speed);
 

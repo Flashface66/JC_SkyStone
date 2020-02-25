@@ -104,8 +104,8 @@ public class RD_Plate extends LinearOpMode {
         RB.RightB.setTargetPosition(newRightTargetTETRIX);
 
 
-        RB.Left.setPower(-speed);
-        RB.Right.setPower(speed);
+        RB.Left.setPower(speed);
+        RB.Right.setPower(-speed);
         RB.LeftB.setPower(speed);
         RB.RightB.setPower(-speed);
 
