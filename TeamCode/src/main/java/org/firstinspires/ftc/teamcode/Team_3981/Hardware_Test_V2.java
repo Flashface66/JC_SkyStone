@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team_3981;
 
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -17,7 +18,6 @@ public class Hardware_Test_V2 {
     public DcMotor Claw2   = null;
     public Servo   Rotate1 = null;
     public Servo   Rotate2 = null;
-
 
     public HardwareMap hwmap;
 
