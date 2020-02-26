@@ -30,12 +30,12 @@ public class BL_Plate extends LinearOpMode {
     private static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: REV Motor Encoder
     private static final double COUNTS_PER_MOTOR_TETRIX = 1440;    // eg: TETRIX Motor Encoder
     private static final double COUNTS_PER_MOTOR_HEX = 288;
-    private static final double DRIVE_GEAR_REDUCTION = 0.3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333;     // This is < 1.0 if geared UP
+    private static final double DRIVE_GEAR_REDUCTION = 0.333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333;     // This is < 1.0 if geared UP
     private static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     private static final double CIRCUMFERENCE_INCHES = (WHEEL_DIAMETER_INCHES * Math.PI);
     private static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION);
     private static final double COUNTS_PER_INCH_TETRIX = (COUNTS_PER_MOTOR_TETRIX * DRIVE_GEAR_REDUCTION);
-    private static final double DRIVE_SPEED = 0.5;
+    private static final double DRIVE_SPEED = 0.3;
     private static final double TURN_SPEED = 0.4;
 
 
@@ -121,10 +121,10 @@ public class BL_Plate extends LinearOpMode {
         // Determine new target position, and pass to motor controller
 
 
-        RB.Left.setTargetPosition(newRightTargetTETRIX);
-        RB.Right.setTargetPosition( newLeftTargetTETRIX);
-        RB.LeftB.setTargetPosition(newRightTargetTETRIX);
-        RB.RightB.setTargetPosition( newLeftTargetTETRIX);
+        RB.Left.setTargetPosition(newLeftTargetTETRIX);
+        RB.Right.setTargetPosition(newRightTargetTETRIX);
+        RB.LeftB.setTargetPosition(newLeftTargetTETRIX);
+        RB.RightB.setTargetPosition(newRightTargetTETRIX);
 
 
 
