@@ -65,14 +65,14 @@ public class RD_Plate extends LinearOpMode {
         lift(1, 1200);
         encoderDrive(0.2, 47, 47);
         encoderDrive(DRIVE_SPEED, -12, 12);
-        encoderDrive(DRIVE_SPEED, 3, 3);
+        encoderDrive(DRIVE_SPEED, 6, 6);
         lift(0.5, -1200);
-        encoderDrive(DRIVE_SPEED, -6, -6);
-        encoderDrive(TURN_SPEED, -35, 35);
-        encoderDrive(DRIVE_SPEED, 27, 27);
+        encoderDrive(DRIVE_SPEED, -7, -7);
+        encoderDrive(0.5, -55, 55);
+        encoderDrive(1, 54, 54);
         lift(1, 600);
         encoderDrive(DRIVE_SPEED, -5, -5);
-        encoderDrive(DRIVE_SPEED, 12, -12);
+        encoderDrive(DRIVE_SPEED, 35, -35);
         encoderDrive(DRIVE_SPEED, -39, -39);
 
 
@@ -103,8 +103,8 @@ public class RD_Plate extends LinearOpMode {
         // Determine new target position, and pass to motor controller
 
 
-        RB.Left.setTargetPosition(newLeftTarget);
-        RB.Right.setTargetPosition(newRightTarget);
+        RB.Left.setTargetPosition(newLeftTargetTETRIX);
+        RB.Right.setTargetPosition(newRightTargetTETRIX);
         RB.LeftB.setTargetPosition(newLeftTargetTETRIX);
         RB.RightB.setTargetPosition(newRightTargetTETRIX);
 
@@ -124,7 +124,7 @@ public class RD_Plate extends LinearOpMode {
         while ((RB.Left.isBusy() && RB.Right.isBusy() && RB.LeftB.isBusy() && RB.RightB.isBusy())) {
 
             // Display it for the driver.
-            telemetry.addData("AndyMsrk Target", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+           // telemetry.addData("AndyMsrk Target", "Running to %7d :%7d", newLeftTarget, newRightTarget);
             telemetry.addData("TETRIX Target", "Running to %7d :%7d", newLeftTargetTETRIX, newRightTargetTETRIX);
             telemetry.addData("Current Values", "Running at %7d :%7d :  %7d :%7d",
                     RB.Left.getCurrentPosition(),

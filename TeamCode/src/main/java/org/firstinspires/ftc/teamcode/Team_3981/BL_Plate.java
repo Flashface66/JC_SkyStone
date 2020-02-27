@@ -30,7 +30,7 @@ public class BL_Plate extends LinearOpMode {
     private static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: REV Motor Encoder
     private static final double COUNTS_PER_MOTOR_TETRIX = 1440;    // eg: TETRIX Motor Encoder
     private static final double COUNTS_PER_MOTOR_HEX = 288;
-    private static final double DRIVE_GEAR_REDUCTION = 0.333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333;     // This is < 1.0 if geared UP
+    private static final double DRIVE_GEAR_REDUCTION = 0.3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333;     // This is < 1.0 if geared UP
     private static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     private static final double CIRCUMFERENCE_INCHES = (WHEEL_DIAMETER_INCHES * Math.PI);
     private static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION);
@@ -78,19 +78,20 @@ public class BL_Plate extends LinearOpMode {
 
 
 
+
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         lift(1, 1200);
         encoderDrive(0.2, 47, 47);
         encoderDrive(DRIVE_SPEED, 12, -12);
-        encoderDrive(DRIVE_SPEED, 5, 5);
+        encoderDrive(DRIVE_SPEED, 6, 6);
         lift(0.5, -1200);
-        encoderDrive(DRIVE_SPEED, -9, -9);
-        encoderDrive(DRIVE_SPEED, 35, -5);
-        encoderDrive(DRIVE_SPEED, 22, 22);
+        encoderDrive(DRIVE_SPEED, -7, -7);
+        encoderDrive(0.5, 55, -55);
+        encoderDrive(1, 54, 54);
         lift(1, 600);
         encoderDrive(DRIVE_SPEED, -5, -5);
-        encoderDrive(DRIVE_SPEED, -12, 12);
-        encoderDrive(DRIVE_SPEED, -34, -34);
+        encoderDrive(DRIVE_SPEED, -75, 75);
+        encoderDrive(DRIVE_SPEED, -39, -39);
 
 
 
