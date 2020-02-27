@@ -68,11 +68,11 @@ public class RD_Plate extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 6, 6);
         lift(0.5, -1200);
         encoderDrive(DRIVE_SPEED, -7, -7);
-        encoderDrive(0.5, -55, 55);
-        encoderDrive(1, 54, 54);
+        encoderDrive(0.5, -15, 15);
+        encoderDrive(0.4, 50, 50);
         lift(1, 600);
-        encoderDrive(DRIVE_SPEED, -5, -5);
-        encoderDrive(DRIVE_SPEED, 35, -35);
+        encoderDrive(DRIVE_SPEED, -7, -7);
+        encoderDrive(DRIVE_SPEED, 12, -12);
         encoderDrive(DRIVE_SPEED, -39, -39);
 
 
