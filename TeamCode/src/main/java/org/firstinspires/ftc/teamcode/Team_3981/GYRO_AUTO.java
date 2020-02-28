@@ -158,14 +158,17 @@ public class GYRO_AUTO extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         // Put a hold after each turn
+        lift(1, 1200);
         gyroDrive(DRIVE_SPEED, 48.0, 0.0);    // Drive FWD 48 inches
         gyroTurn( TURN_SPEED, 90.0);         // Turn  CW to 90 Degrees
         gyroHold( TURN_SPEED,  90.0, 0.5);
         gyroDrive(DRIVE_SPEED, 6.0, 90.0);  // Drive FWD 6 inches at 90 degrees
+        lift(0.5, -1200);
         gyroDrive(DRIVE_SPEED, -7.0, 90.0);  // Drive FWD 6 inches at 90 degrees
         gyroTurn( TURN_SPEED,  135.0);         // Turn  CW  to  45 Degrees
         gyroHold( TURN_SPEED,  135.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
         gyroDrive(DRIVE_SPEED, 54.0, 135.0);  // Drive FWD 6 inches at 90 degrees
+        lift(1, 600);
         gyroDrive(DRIVE_SPEED, -7.0, 135.0);  // Drive FWD 6 inches at 90 degrees
         gyroTurn( TURN_SPEED,   90.0);         // Turn  CW  to   0 Degrees
         gyroHold( TURN_SPEED,   90.0, 1.0);    // Hold  0 Deg heading for a 1 second
