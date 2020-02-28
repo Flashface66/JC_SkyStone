@@ -1,8 +1,22 @@
 package org.firstinspires.ftc.teamcode.Team_3981;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.external.Func;
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+
+import java.util.Locale;
 
 
 @Autonomous(name = "Pushbot: Blue Build", group = "Auto")
@@ -12,10 +26,11 @@ public class BL_Plate extends LinearOpMode {
     private Hardware_Test_V2 RB = new Hardware_Test_V2();   // Use a Pushbot's hardware
 
 
+
     private static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: REV Motor Encoder
     private static final double COUNTS_PER_MOTOR_TETRIX = 1440;    // eg: TETRIX Motor Encoder
     private static final double COUNTS_PER_MOTOR_HEX = 288;
-    private static final double DRIVE_GEAR_REDUCTION = 0.3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333;     // This is < 1.0 if geared UP
+    private static final double DRIVE_GEAR_REDUCTION = 0.3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333;     // This is < 1.0 if geared UP
     private static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     private static final double CIRCUMFERENCE_INCHES = (WHEEL_DIAMETER_INCHES * Math.PI);
     private static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION);
@@ -23,11 +38,14 @@ public class BL_Plate extends LinearOpMode {
     private static final double DRIVE_SPEED = 0.3;
     private static final double TURN_SPEED = 0.4;
 
+
+
+
     @Override
     public void runOpMode() {
 
-
         RB.init(hardwareMap);
+
 
 
         RB.Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -53,22 +71,28 @@ public class BL_Plate extends LinearOpMode {
         telemetry.update();
 
 
+
         waitForStart();
 
 
+
+
+
+
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-     //   lift(1, 1200);
-        encoderDrive(DRIVE_SPEED, 52, 52);
-        encoderDrive(DRIVE_SPEED, 13, -13);
-        encoderDrive(DRIVE_SPEED, 5, 5);
-       // lift(0.5, -1200);
-        encoderDrive(DRIVE_SPEED, -5, -5);
-        encoderDrive(TURN_SPEED, 35, -35);
-        encoderDrive(DRIVE_SPEED, 27, 27);
-       // lift(1, 600);
-        encoderDrive(DRIVE_SPEED, -5, -5);
-        encoderDrive(DRIVE_SPEED, -13.94, 13.94);
+        lift(1, 1200);
+        encoderDrive(0.2, 47, 47);
+        encoderDrive(DRIVE_SPEED, 12, -12);
+        encoderDrive(DRIVE_SPEED, 6, 6);
+        lift(0.5, -1200);
+        encoderDrive(DRIVE_SPEED, -7, -7);
+        encoderDrive(0.5, 60, -60);
+        encoderDrive(1, 54, 54);
+        lift(1, 600);
+        encoderDrive(DRIVE_SPEED, -7, -7);
+        encoderDrive(TURN_SPEED, -75, 75);
         encoderDrive(DRIVE_SPEED, -39, -39);
+
 
 
         // send the info back to driver station using telemetry function.
@@ -104,6 +128,8 @@ public class BL_Plate extends LinearOpMode {
         RB.RightB.setTargetPosition(newRightTargetTETRIX);
 
 
+
+
         RB.Left.setPower(speed);
         RB.Right.setPower(-speed);
         RB.LeftB.setPower(speed);
@@ -119,7 +145,7 @@ public class BL_Plate extends LinearOpMode {
         while ((RB.Left.isBusy() && RB.Right.isBusy() && RB.LeftB.isBusy() && RB.RightB.isBusy())) {
 
             // Display it for the driver.
-            telemetry.addData("AndyMsrk Target", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+            //telemetry.addData("AndyMark Target", "Running to %7d :%7d", newLeftTarget, newRightTarget);
             telemetry.addData("TETRIX Target", "Running to %7d :%7d", newLeftTargetTETRIX, newRightTargetTETRIX);
             telemetry.addData("Current Values", "Running at %7d :%7d :  %7d :%7d",
                     RB.Left.getCurrentPosition(),
@@ -134,6 +160,9 @@ public class BL_Plate extends LinearOpMode {
         RB.Right.setPower(0);
         RB.LeftB.setPower(0);
         RB.RightB.setPower(0);
+
+
+
 
         // Turn off RUN_TO_POSITION
         RB.Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

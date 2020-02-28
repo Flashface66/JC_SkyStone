@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.Team_3981;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
 @Autonomous(name = "Pushbot: Red Plate", group = "Auto")
@@ -10,6 +14,7 @@ public class RD_Plate extends LinearOpMode {
 
     /* Declare OpMode members. */
     private Hardware_Test_V2 RB = new Hardware_Test_V2();   // Use a Pushbot's hardware
+
 
 
     private static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: REV Motor Encoder
@@ -58,16 +63,16 @@ public class RD_Plate extends LinearOpMode {
 
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         lift(1, 1200);
-        encoderDrive(0.2, 52, 52);
-        encoderDrive(DRIVE_SPEED, -13, 13);
-        encoderDrive(DRIVE_SPEED, 3, 3);
+        encoderDrive(0.2, 47, 47);
+        encoderDrive(DRIVE_SPEED, -12, 12);
+        encoderDrive(DRIVE_SPEED, 6, 6);
         lift(0.5, -1200);
-        encoderDrive(DRIVE_SPEED, -6, -6);
-        encoderDrive(TURN_SPEED, -35, 35);
-        encoderDrive(DRIVE_SPEED, 27, 27);
+        encoderDrive(DRIVE_SPEED, -7, -7);
+        encoderDrive(0.5, -15, 15);
+        encoderDrive(0.4, 50, 50);
         lift(1, 600);
-        encoderDrive(DRIVE_SPEED, -5, -5);
-        encoderDrive(DRIVE_SPEED, 13, -13);
+        encoderDrive(DRIVE_SPEED, -7, -7);
+        encoderDrive(DRIVE_SPEED, 12, -12);
         encoderDrive(DRIVE_SPEED, -39, -39);
 
 
@@ -98,8 +103,8 @@ public class RD_Plate extends LinearOpMode {
         // Determine new target position, and pass to motor controller
 
 
-        RB.Left.setTargetPosition(newLeftTarget);
-        RB.Right.setTargetPosition(newRightTarget);
+        RB.Left.setTargetPosition(newLeftTargetTETRIX);
+        RB.Right.setTargetPosition(newRightTargetTETRIX);
         RB.LeftB.setTargetPosition(newLeftTargetTETRIX);
         RB.RightB.setTargetPosition(newRightTargetTETRIX);
 
@@ -119,7 +124,7 @@ public class RD_Plate extends LinearOpMode {
         while ((RB.Left.isBusy() && RB.Right.isBusy() && RB.LeftB.isBusy() && RB.RightB.isBusy())) {
 
             // Display it for the driver.
-            telemetry.addData("AndyMsrk Target", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+           // telemetry.addData("AndyMsrk Target", "Running to %7d :%7d", newLeftTarget, newRightTarget);
             telemetry.addData("TETRIX Target", "Running to %7d :%7d", newLeftTargetTETRIX, newRightTargetTETRIX);
             telemetry.addData("Current Values", "Running at %7d :%7d :  %7d :%7d",
                     RB.Left.getCurrentPosition(),

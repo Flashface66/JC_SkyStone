@@ -88,14 +88,14 @@ public class Reverse extends LinearOpMode {
         // Determine new target position, and pass to motor controller
 
 
-        RB.Left.setTargetPosition(newLeftTarget);
-        RB.Right.setTargetPosition(newRightTarget);
+        RB.Left.setTargetPosition(newLeftTargetTETRIX);
+        RB.Right.setTargetPosition(newRightTargetTETRIX);
         RB.LeftB.setTargetPosition(newLeftTargetTETRIX);
         RB.RightB.setTargetPosition(newRightTargetTETRIX);
 
 
-        RB.Left.setPower(-speed);
-        RB.Right.setPower(speed);
+        RB.Left.setPower(speed);
+        RB.Right.setPower(-speed);
         RB.LeftB.setPower(speed);
         RB.RightB.setPower(-speed);
 
